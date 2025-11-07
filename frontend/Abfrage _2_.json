@@ -1,0 +1,1047 @@
+[
+  {
+    "ID": "2",
+    "KategorieID": "1",
+    "UnterkategorieNamen": "Rechtliche & betriebliche Grundsätze"
+  },
+  {
+    "ID": "3",
+    "KategorieID": "1",
+    "UnterkategorieNamen": "Kundengesprächsmanagement (Vorbeireitung & Nachbereitung)"
+  },
+  {
+    "ID": "4",
+    "KategorieID": "1",
+    "UnterkategorieNamen": "Relationship Marketing (kundenprozesse)"
+  },
+  {
+    "ID": "5",
+    "KategorieID": "1",
+    "UnterkategorieNamen": "Customer Realtionship Management (CRM)"
+  },
+  {
+    "ID": "6",
+    "KategorieID": "1",
+    "UnterkategorieNamen": "Gestze gegen unlauten Wettbewerb"
+  },
+  {
+    "ID": "7",
+    "KategorieID": "1",
+    "UnterkategorieNamen": "AGB-Gestze"
+  },
+  {
+    "ID": "8",
+    "KategorieID": "1",
+    "UnterkategorieNamen": "Regelkonformität"
+  },
+  {
+    "ID": "9",
+    "KategorieID": "1",
+    "UnterkategorieNamen": "Compliance-Reglungen"
+  },
+  {
+    "ID": "10",
+    "KategorieID": "1",
+    "UnterkategorieNamen": "Ethik"
+  },
+  {
+    "ID": "11",
+    "KategorieID": "2",
+    "UnterkategorieNamen": "Situationsgerechte Gesprächsführung"
+  },
+  {
+    "ID": "12",
+    "KategorieID": "2",
+    "UnterkategorieNamen": "Multimediale Datenaufbereitung"
+  },
+  {
+    "ID": "13",
+    "KategorieID": "2",
+    "UnterkategorieNamen": "Softwarebasierte Sachpräsentation"
+  },
+  {
+    "ID": "14",
+    "KategorieID": "2",
+    "UnterkategorieNamen": "Kommunikations- & Argumentationstechniken"
+  },
+  {
+    "ID": "15",
+    "KategorieID": "2",
+    "UnterkategorieNamen": "Präsentationstechniken"
+  },
+  {
+    "ID": "16",
+    "KategorieID": "2",
+    "UnterkategorieNamen": "Visualisierung & Mediengestaltung"
+  },
+  {
+    "ID": "17",
+    "KategorieID": "2",
+    "UnterkategorieNamen": "Tabellenkalkulation"
+  },
+  {
+    "ID": "18",
+    "KategorieID": "2",
+    "UnterkategorieNamen": "Präsentationssoftware"
+  },
+  {
+    "ID": "19",
+    "KategorieID": "2",
+    "UnterkategorieNamen": "Multimediale Content-Tools"
+  },
+  {
+    "ID": "20",
+    "KategorieID": "2",
+    "UnterkategorieNamen": "Corporate Identity (CI)"
+  },
+  {
+    "ID": "21",
+    "KategorieID": "2",
+    "UnterkategorieNamen": "Marktübliche Präsentationssoftware"
+  },
+  {
+    "ID": "22",
+    "KategorieID": "2",
+    "UnterkategorieNamen": "Präsentationsmanagement (Vorbereitung/Nachbereitung)"
+  },
+  {
+    "ID": "23",
+    "KategorieID": "2",
+    "UnterkategorieNamen": "Präsentationselemente: Regeln & Farbwirkung"
+  },
+  {
+    "ID": "24",
+    "KategorieID": "2",
+    "UnterkategorieNamen": "Rhetorik & Sprechtechnik"
+  },
+  {
+    "ID": "25",
+    "KategorieID": "3",
+    "UnterkategorieNamen": "IT-Trends und deren Auswirkungen analysieren"
+  },
+  {
+    "ID": "26",
+    "KategorieID": "3",
+    "UnterkategorieNamen": "Neue IT-Anwendungsfelder erkennen"
+  },
+  {
+    "ID": "27",
+    "KategorieID": "3",
+    "UnterkategorieNamen": "Trends durch Such- und Innovationsfelder identifizieren"
+  },
+  {
+    "ID": "28",
+    "KategorieID": "3",
+    "UnterkategorieNamen": "Informationen zu Auswirkungen auf Unternehmen/Branche/Gesellschaft sammeln"
+  },
+  {
+    "ID": "29",
+    "KategorieID": "3",
+    "UnterkategorieNamen": "Aktive Information (Newsfeeds/Newsletter) einrichten"
+  },
+  {
+    "ID": "30",
+    "KategorieID": "3",
+    "UnterkategorieNamen": "Geeignete Informationsquellen zur Trend- und Einsatzfelderkennung nutzen"
+  },
+  {
+    "ID": "31",
+    "KategorieID": "3",
+    "UnterkategorieNamen": "IT-Systeme auf neue Einsatzgebiete testen"
+  },
+  {
+    "ID": "32",
+    "KategorieID": "4",
+    "UnterkategorieNamen": "Datenbank-Datentypen"
+  },
+  {
+    "ID": "33",
+    "KategorieID": "4",
+    "UnterkategorieNamen": "OpenData & API-Schnittstellen"
+  },
+  {
+    "ID": "34",
+    "KategorieID": "4",
+    "UnterkategorieNamen": "Integration in Bestandssysteme"
+  },
+  {
+    "ID": "35",
+    "KategorieID": "4",
+    "UnterkategorieNamen": "Speicherlösungen & DB-Integration"
+  },
+  {
+    "ID": "36",
+    "KategorieID": "4",
+    "UnterkategorieNamen": "Datenbank-Schnittstellen (Externe Systeme)"
+  },
+  {
+    "ID": "37",
+    "KategorieID": "4",
+    "UnterkategorieNamen": "Vielfältige Datenquellen"
+  },
+  {
+    "ID": "38",
+    "KategorieID": "4",
+    "UnterkategorieNamen": "DB-Grundbegriffe: Schlüssel & Kardinalität"
+  },
+  {
+    "ID": "39",
+    "KategorieID": "4",
+    "UnterkategorieNamen": "Referentielle Integrität"
+  },
+  {
+    "ID": "40",
+    "KategorieID": "4",
+    "UnterkategorieNamen": "Lösch-Constraints (CASCADE, RESTRICT)"
+  },
+  {
+    "ID": "41",
+    "KategorieID": "4",
+    "UnterkategorieNamen": "Erweiterte DB-Objekte"
+  },
+  {
+    "ID": "42",
+    "KategorieID": "4",
+    "UnterkategorieNamen": "Replikation"
+  },
+  {
+    "ID": "43",
+    "KategorieID": "4",
+    "UnterkategorieNamen": "ACID-Prinzipien (Transaktionen)"
+  },
+  {
+    "ID": "44",
+    "KategorieID": "4",
+    "UnterkategorieNamen": "Big Data & Streaming Analytics"
+  },
+  {
+    "ID": "45",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Mängelmanagement & Dokumentation"
+  },
+  {
+    "ID": "46",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Prüfverfahren (Parität, Redundanz)"
+  },
+  {
+    "ID": "47",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Debugging & Ablaufverfolgung"
+  },
+  {
+    "ID": "48",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Netzwerkanalyse (Bandbreite, Latenz)"
+  },
+  {
+    "ID": "49",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Zielkontrolle (Soll-Ist-Vergleich)"
+  },
+  {
+    "ID": "50",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Kontinuierlicher Verbesserungsprozess (KVP, PDCA"
+  },
+  {
+    "ID": "51",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Sicherheitsaspekte in der Softwareentwicklung"
+  },
+  {
+    "ID": "52",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Datenintegrität"
+  },
+  {
+    "ID": "53",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Datenbank-Integrität (Constraints, Validierungen, Transaktionen)"
+  },
+  {
+    "ID": "54",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Problemlösungsprozess (DMAIC)"
+  },
+  {
+    "ID": "55",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Methoden zur Ursachenanalyse"
+  },
+  {
+    "ID": "56",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Fehlerbehebung & Lösungsrealisierung"
+  },
+  {
+    "ID": "57",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Grundlagen Qualitätsmanagement"
+  },
+  {
+    "ID": "58",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Qualitätsplanung (Ist-Ziel-Zustand)"
+  },
+  {
+    "ID": "59",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Qualitätslenkung (Umsetzung)"
+  },
+  {
+    "ID": "60",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Stochastik (Wahrscheinlichkeiten bei Mängeln)"
+  },
+  {
+    "ID": "61",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Qualitätssicherung: Information Auswertung"
+  },
+  {
+    "ID": "62",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Qualitätsmanagement als selbststeuernder Prozess"
+  },
+  {
+    "ID": "63",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Erstellung von Handbüchern"
+  },
+  {
+    "ID": "64",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Verständlichkeit Herstellerdokumentation"
+  },
+  {
+    "ID": "65",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Incident Management (Ticketsystem)"
+  },
+  {
+    "ID": "66",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Standard Operation Procedures (SOP)"
+  },
+  {
+    "ID": "67",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Service Level Agreement (SLA)"
+  },
+  {
+    "ID": "68",
+    "KategorieID": "5",
+    "UnterkategorieNamen": "Lasten-/Pflichtenheft"
+  },
+  {
+    "ID": "69",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Grundlagen Testverfahren (TDD, E2E)"
+  },
+  {
+    "ID": "70",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Klassifizierung von Tests (5 W-Fragen)"
+  },
+  {
+    "ID": "71",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Testdurchführung: Manuell vs. Automatisch"
+  },
+  {
+    "ID": "72",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Testrollen: Entwickler vs. Benutzer"
+  },
+  {
+    "ID": "73",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Testebenen & Testpyramide"
+  },
+  {
+    "ID": "74",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Teststrategien: Bottom-Up vs. Top-Down"
+  },
+  {
+    "ID": "75",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Statische vs. Dynamische Tests"
+  },
+  {
+    "ID": "76",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Testverfahren: Blackbox vs. Whitebox"
+  },
+  {
+    "ID": "77",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Spezielle Testmethoden"
+  },
+  {
+    "ID": "78",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Testzeitpunkte & Abnahmetest"
+  },
+  {
+    "ID": "79",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Testarten: Last, Performance, Regression"
+  },
+  {
+    "ID": "80",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Testfallermittlung: Code-Überdeckung"
+  },
+  {
+    "ID": "81",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Testfallermittlung: Äquivalenz & Grenzwerte"
+  },
+  {
+    "ID": "82",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Modultesterstellung & Durchführung"
+  },
+  {
+    "ID": "83",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Test-Doubles: Stubs vs. Mocks"
+  },
+  {
+    "ID": "84",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Eigenschaften guter Unit-Tests"
+  },
+  {
+    "ID": "85",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Testkonzepte erstellen"
+  },
+  {
+    "ID": "86",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Testumfang & Testdaten"
+  },
+  {
+    "ID": "87",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Testergebnisse medial aufbereiten"
+  },
+  {
+    "ID": "88",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Testprozess-Ablauf"
+  },
+  {
+    "ID": "89",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Testergebnisauswertung & Soll-Ist"
+  },
+  {
+    "ID": "90",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Kontrollverfahren (Überbegriff)"
+  },
+  {
+    "ID": "91",
+    "KategorieID": "11",
+    "UnterkategorieNamen": "Software-Test & Abnahmeprotokoll"
+  },
+  {
+    "ID": "92",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Datensicherheit: AAA-Verschlüsselung"
+  },
+  {
+    "ID": "93",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Schadenspotenzial- & Risikoanalyse"
+  },
+  {
+    "ID": "94",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Schadensklassifikation (CIA)"
+  },
+  {
+    "ID": "95",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Aktuelle Bedrohungen (Ransomware, Phishing)"
+  },
+  {
+    "ID": "96",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Sicherheitskriterien für Entwickler"
+  },
+  {
+    "ID": "97",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "IT-Grundschutz & Security by Design"
+  },
+  {
+    "ID": "98",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Sicherheitsberatung (Haushalte, Unternehmen, Öff. Hand)"
+  },
+  {
+    "ID": "99",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Anforderungsmanagement (Funktional/Qualität)"
+  },
+  {
+    "ID": "100",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Technologische & Organisatorische Rahmenbedingungen"
+  },
+  {
+    "ID": "101",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Authentifizierung & Autorisierung"
+  },
+  {
+    "ID": "102",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Moderne Auth-Verfahren (OAuth2, SSO)"
+  },
+  {
+    "ID": "103",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Wirksamkeitsprüfung (Sicherheit & Datenschutz)"
+  },
+  {
+    "ID": "104",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Device Security Check"
+  },
+  {
+    "ID": "105",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Identity & Access Management (IAM)"
+  },
+  {
+    "ID": "106",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Schwachstellenanalyse & E2E-Verschlüsselung"
+  },
+  {
+    "ID": "107",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Zutritts-, Zugangs- & Zugriffskontrolle"
+  },
+  {
+    "ID": "108",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Log Management"
+  },
+  {
+    "ID": "109",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Compliance Reporting"
+  },
+  {
+    "ID": "110",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Gefahrenquellen (Strom, Viren)"
+  },
+  {
+    "ID": "111",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Gegenmaßnahmen & Notfalltechnik"
+  },
+  {
+    "ID": "112",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Schutzbedarfs-Kategorien (BSI)"
+  },
+  {
+    "ID": "113",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "IT-Sicherheitsregeln"
+  },
+  {
+    "ID": "114",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "IT-Sicherheitszertifizierungen"
+  },
+  {
+    "ID": "115",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Erweiterte Risikoanalyse (BSI 100-3)"
+  },
+  {
+    "ID": "116",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Elementarrisiken"
+  },
+  {
+    "ID": "117",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Netzwerk-Penetrationstest"
+  },
+  {
+    "ID": "118",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Penetrationstest-Prozess (5 Stufen"
+  },
+  {
+    "ID": "119",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Angriffswerkzeuge (Scanner, Sniffer)"
+  },
+  {
+    "ID": "120",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Angriffsterminologie (Hacker, Phishing, MITM)"
+  },
+  {
+    "ID": "121",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Web-Angriffe (Injection, XSS, CSRF, DDoS)"
+  },
+  {
+    "ID": "122",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Malware-Typen (Viren, Trojaner, Ransomware)"
+  },
+  {
+    "ID": "123",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Exploits & Backdoors"
+  },
+  {
+    "ID": "124",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Angriffserkennung (Monitoring, Honeypots)"
+  },
+  {
+    "ID": "125",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "OWASP Top 10"
+  },
+  {
+    "ID": "126",
+    "KategorieID": "6",
+    "UnterkategorieNamen": "Entwickler-Gegenmaßnahmen (Validierung, CORS)"
+  },
+  {
+    "ID": "127",
+    "KategorieID": "7",
+    "UnterkategorieNamen": "Datenschutz-Rechtsgrundlagen (DSGVO, BDSG)"
+  },
+  {
+    "ID": "128",
+    "KategorieID": "7",
+    "UnterkategorieNamen": "Definition p.b. Daten"
+  },
+  {
+    "ID": "129",
+    "KategorieID": "7",
+    "UnterkategorieNamen": "Grundprinzipien (Art. 5 DSGVO)"
+  },
+  {
+    "ID": "130",
+    "KategorieID": "7",
+    "UnterkategorieNamen": "Betroffenenrechte (Auskunft, Löschung etc.)"
+  },
+  {
+    "ID": "131",
+    "KategorieID": "7",
+    "UnterkategorieNamen": "Persönlichkeitsrechte (Selbstbestimmung, Bild, Intimsphäre)"
+  },
+  {
+    "ID": "132",
+    "KategorieID": "7",
+    "UnterkategorieNamen": "Archivierung (Recht, Fristen, Backup-Unterschied)"
+  },
+  {
+    "ID": "133",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Netzwerkkonzepte (Anwendungsgebiete)"
+  },
+  {
+    "ID": "134",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Datenaustausch in vernetzten Systemen"
+  },
+  {
+    "ID": "135",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Netzwerk-Verfügbarkeit & Ausfallsicherheit"
+  },
+  {
+    "ID": "136",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Präventive Wartung & Störungsvermeidung"
+  },
+  {
+    "ID": "137",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Störungsmanagement & Analyse"
+  },
+  {
+    "ID": "138",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Zielgruppenorientierte Dokumentation"
+  },
+  {
+    "ID": "139",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Problembeseitigung & Lieferantenaustausch"
+  },
+  {
+    "ID": "140",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Eskalation an Spezialisten"
+  },
+  {
+    "ID": "141",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Adressierung (IP, MAC, ARP)"
+  },
+  {
+    "ID": "142",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Routing & Switching"
+  },
+  {
+    "ID": "143",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "DNS & DHCP"
+  },
+  {
+    "ID": "144",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Protokolle TCP/UDP"
+  },
+  {
+    "ID": "145",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Sicherheitsprotokolle (TLS/SSL, IPsec)"
+  },
+  {
+    "ID": "146",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Freigabeprotokolle (SMB, NFS)"
+  },
+  {
+    "ID": "147",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Übertragungsmedien (Ethernet, FibreChannel)"
+  },
+  {
+    "ID": "148",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Datenübertragungsraten"
+  },
+  {
+    "ID": "149",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Netzwerk-Verschlüsselung"
+  },
+  {
+    "ID": "150",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Zugriffskontrolle (RADIUS, Kerberos)"
+  },
+  {
+    "ID": "151",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Netzwerktypen (LAN/WAN/MAN/GAN)"
+  },
+  {
+    "ID": "152",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Strukturierte Verkabelung"
+  },
+  {
+    "ID": "153",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Kabeltypen & EMV"
+  },
+  {
+    "ID": "154",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Netzwerkgeräte (Switch, Router)"
+  },
+  {
+    "ID": "155",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Virtual LAN (VLAN)"
+  },
+  {
+    "ID": "156",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Drahtlose Netzwerke & Bluetooth"
+  },
+  {
+    "ID": "157",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "WLAN-Sicherheit (WEP, WPA)"
+  },
+  {
+    "ID": "158",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Netzwerktopologien"
+  },
+  {
+    "ID": "159",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Netzwerkplan"
+  },
+  {
+    "ID": "160",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Virtuelle Private Netzwerke (VPN)"
+  },
+  {
+    "ID": "161",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Echtzeitkommunikation"
+  },
+  {
+    "ID": "162",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Typische Serverdienste"
+  },
+  {
+    "ID": "163",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "ANR (Automatic Network Recovery)"
+  },
+  {
+    "ID": "164",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Disaster Recovery (Notfallkonzept)"
+  },
+  {
+    "ID": "165",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Betriebssicherheit (USV, RAID, MTBF)"
+  },
+  {
+    "ID": "166",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Monitoring-Protokolle (SNMP, S.M.A.R.T.)"
+  },
+  {
+    "ID": "167",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Systemlastanalyse"
+  },
+  {
+    "ID": "168",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Firewall-Technologien"
+  },
+  {
+    "ID": "169",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Port-Sicherheit & Port-Forwarding"
+  },
+  {
+    "ID": "170",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Datenabruf (HTTP, ODBC)"
+  },
+  {
+    "ID": "171",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "System-Monitoring (Schwellwerte)"
+  },
+  {
+    "ID": "172",
+    "KategorieID": "8",
+    "UnterkategorieNamen": "Cyber-Physische Systeme (CPS)"
+  },
+  {
+    "ID": "173",
+    "KategorieID": "9",
+    "UnterkategorieNamen": "Sicherheit & physische Zugangskontrolle (Rechte, Serverraum)"
+  },
+  {
+    "ID": "174",
+    "KategorieID": "9",
+    "UnterkategorieNamen": "Speicherintegration in Datenbanksysteme"
+  },
+  {
+    "ID": "175",
+    "KategorieID": "9",
+    "UnterkategorieNamen": "Speicherarchitekturen (DAS, SAN, NAS)"
+  },
+  {
+    "ID": "176",
+    "KategorieID": "9",
+    "UnterkategorieNamen": "Organisatorische Aspekte (Standort, Struktur)"
+  },
+  {
+    "ID": "177",
+    "KategorieID": "9",
+    "UnterkategorieNamen": "Usermanagement"
+  },
+  {
+    "ID": "178",
+    "KategorieID": "9",
+    "UnterkategorieNamen": "Speicherverschlüsselung (TPM, Bitlocker)"
+  },
+  {
+    "ID": "179",
+    "KategorieID": "9",
+    "UnterkategorieNamen": "Cloud-Dienste und -Architekturen (SaaS, IaaS, FaaS)"
+  },
+  {
+    "ID": "180",
+    "KategorieID": "9",
+    "UnterkategorieNamen": "Data Lake"
+  },
+  {
+    "ID": "181",
+    "KategorieID": "9",
+    "UnterkategorieNamen": "RAID-Level & JBOD (Nested RAID)"
+  },
+  {
+    "ID": "182",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "Komplexe Abfragen & Reporting"
+  },
+  {
+    "ID": "183",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "SQL-Grundlagen & Anwendungszweck"
+  },
+  {
+    "ID": "184",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "Projektion vs. Selektion"
+  },
+  {
+    "ID": "185",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "Kreuzprodukt / Kartesisches Produkt"
+  },
+  {
+    "ID": "186",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "SQL-Befehlsklassen (DDL, DML, DQL, DCL, TCL)"
+  },
+  {
+    "ID": "187",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "CRUD-Operationen"
+  },
+  {
+    "ID": "188",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "SELECT-Anweisungsaufbau"
+  },
+  {
+    "ID": "189",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "Unterabfragen (Subqueries)"
+  },
+  {
+    "ID": "190",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "Mustervergleiche (LIKE)"
+  },
+  {
+    "ID": "191",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "JOIN-Arten (INNER, OUTER, Self)"
+  },
+  {
+    "ID": "192",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "SQL-Ausdrücke & Bedingungen"
+  },
+  {
+    "ID": "193",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "Aggregatfunktionen"
+  },
+  {
+    "ID": "194",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "DDL: Tabellenstruktur"
+  },
+  {
+    "ID": "195",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "DML: Datenmanipulation"
+  },
+  {
+    "ID": "196",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "Index-Erstellung"
+  },
+  {
+    "ID": "197",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "Begriffe(SELECT; FROM, ORDER BY)"
+  },
+  {
+    "ID": "198",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "Mengenoperationen (INTERSECT, UNION, MINUS)"
+  },
+  {
+    "ID": "199",
+    "KategorieID": "12",
+    "UnterkategorieNamen": "SQL Injection"
+  },
+  {
+    "ID": "200",
+    "KategorieID": "13",
+    "UnterkategorieNamen": "Relationale & Nicht-relationale DB-Modelle"
+  },
+  {
+    "ID": "201",
+    "KategorieID": "13",
+    "UnterkategorieNamen": "NoSQL-Typen & Architekturen"
+  },
+  {
+    "ID": "202",
+    "KategorieID": "13",
+    "UnterkategorieNamen": "Theoreme (CAP & BASE)"
+  },
+  {
+    "ID": "203",
+    "KategorieID": "13",
+    "UnterkategorieNamen": "Map/Reduce"
+  },
+  {
+    "ID": "204",
+    "KategorieID": "13",
+    "UnterkategorieNamen": "Logische, Physische Phase)\tPhasen der DB-Entwicklung (Konzept bis Physisch)"
+  },
+  {
+    "ID": "205",
+    "KategorieID": "13",
+    "UnterkategorieNamen": "Grundlagen der Datenmodellierung"
+  },
+  {
+    "ID": "206",
+    "KategorieID": "13",
+    "UnterkategorieNamen": "DB-Strukturen modellieren"
+  },
+  {
+    "ID": "207",
+    "KategorieID": "13",
+    "UnterkategorieNamen": "ER-Diagramm & Notation (Kardinalität, Attribute)"
+  },
+  {
+    "ID": "208",
+    "KategorieID": "13",
+    "UnterkategorieNamen": "Normalformen (1NF, 2NF, 3NF)"
+  },
+  {
+    "ID": "209",
+    "KategorieID": "13",
+    "UnterkategorieNamen": "Datenbank-Anomalien"
+  },
+  {
+    "ID": "210",
+    "KategorieID": "13",
+    "UnterkategorieNamen": "Beziehungstypen (1:1, 1:n, m:n)"
+  }
+]

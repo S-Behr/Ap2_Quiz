@@ -1,0 +1,19 @@
+# Node.js Ordner
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Systemdateien
+.DS_Store
+Thumbs.db
+
+# Umgebungskonfiguration (niemals commiten!)
+.env
+
+# Temporäre Dateien / Cache
+*.tmp
+.cache/
