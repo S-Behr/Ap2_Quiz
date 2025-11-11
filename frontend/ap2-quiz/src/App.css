@@ -1,3 +1,4 @@
+/* --- Wrapper --- */
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -5,16 +6,51 @@
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  background-color: rgb(167, 165, 165);
+  background: linear-gradient(
+    145deg,
+    #ffecd2,
+    #fcb69f
+  ); /* moderner Farbverlauf */
+  font-family: "Inter", sans-serif;
+  color: #333;
 }
 
+/* --- Button Wrapper --- */
 .btn-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* zentriert die Buttons */
   gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
 }
 
+/* --- Buttons --- */
+.btn-wrapper button,
 .btn-wrapper Button {
-  background-color: white;
-  color: "black";
+  /* deckt HTML-Buttons und MUI Buttons ab */
+  background: linear-gradient(90deg, #ff7f7f, #ff4b4b);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-transform: none; /* damit MUI Buttons nicht automatisch groß schreiben */
+}
+
+.btn-wrapper button:hover,
+.btn-wrapper Button:hover {
+  background: linear-gradient(90deg, #ff4b4b, #ff1f1f);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Optional: responsive Anpassung */
+@media (max-width: 600px) {
+  .btn-wrapper {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
 }

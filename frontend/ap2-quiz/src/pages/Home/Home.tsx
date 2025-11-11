@@ -8,10 +8,49 @@ function Home() {
       <div className="wrapper">
         <h1>Quiz für Abschlussprüfung Teil 2</h1>
         <div className="btn-wrapper">
-          <Button variant="outlined" component={Link} to="/Flashcards">
+          <Button
+            variant="outlined"
+            component={Link}
+            to="/Flashcards"
+            sx={{
+              borderColor: "#ff4b4b", // rote Umrandung
+              color: "#ff4b4b", // Textfarbe
+              borderRadius: "8px",
+              padding: "10px 20px",
+              fontWeight: 500,
+              textTransform: "none",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                background: "linear-gradient(90deg, #ff7f7f, #ff4b4b)", // Gradient beim Hover
+                color: "#fff",
+                boxShadow: "0 6px 18px rgba(0,0,0,0.15)",
+                borderColor: "#ff4b4b",
+              },
+            }}
+          >
             Lernkarten
           </Button>
-          <Button variant="outlined" component={Link} to="/apQuestions">
+
+          <Button
+            variant="outlined"
+            component={Link}
+            to="/apQuestions"
+            sx={{
+              borderColor: "#ff4b4b",
+              color: "#ff4b4b",
+              borderRadius: "8px",
+              padding: "10px 20px",
+              fontWeight: 500,
+              textTransform: "none",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                background: "linear-gradient(90deg, #ff7f7f, #ff4b4b)",
+                color: "#fff",
+                boxShadow: "0 6px 18px rgba(0,0,0,0.15)",
+                borderColor: "#ff4b4b",
+              },
+            }}
+          >
             AP2 Fragen
           </Button>
         </div>
