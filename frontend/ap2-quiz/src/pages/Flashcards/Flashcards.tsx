@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./flashcards.css";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import FlashcardModal from "./FlashcardModal";
-
-interface Flashcard {
-  id: string;
-  frage: string;
-  antwort: string;
-}
 
 interface Subtopic {
   title: string;
   path: string;
-  subkategorieId: string;
 }
 
 interface Topic {
@@ -22,140 +14,155 @@ interface Topic {
   subtopics: Subtopic[];
 }
 
-interface RawKategorie {
-  ID: string;
-  KategorieName: string;
-}
-
-interface RawUnterkategorie {
-  ID: string;
-  KategorieID: string;
-  Titel: string;
-}
-
-const slugify = (text: string) => {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-};
+const initialLernfelder: Topic[] = [
+  {
+    id: "kunden",
+    title: "Kundenbeziehung",
+    subtopics: [
+      {
+        title: "Rechtliche & betriebliche Grundsätze",
+        path: "k_RbG",
+      },
+      {
+        title: "Kundengesprächs-Management (Vorbereitung & Nachbereitung)",
+        path: "k_KgM",
+      },
+      {
+        title: "Relationship Marketing (Kundenprozesse)",
+        path: "k_RM",
+      },
+      {
+        title: "Customer Relationship Management (CRM)",
+        path: "k_CRM",
+      },
+      {
+        title: "Gesetz gegen unlauteren Wettbewerb",
+        path: "k_GuW",
+      },
+      {
+        title: "AGB-Gesetz",
+        path: "k_AGB",
+      },
+      {
+        title: "Regelkonformität",
+        path: "k_Regel",
+      },
+      {
+        title: "Compliance-Regelungen",
+        path: "k_CR",
+      },
+      {
+        title: "Ethik",
+        path: "k_Ethik",
+      },
+    ],
+  },
+  {
+    id: "präsentieren",
+    title: "Präsentieren",
+    subtopics: [
+      { title: "Situationsgerechte Gesprächsführung", path: "p_SG" },
+      { title: "Multimediale Datenaufbereitung", path: "p_MD" },
+      { title: "Softwarebasierte Sachpräsentation", path: "p_SSp" },
+      { title: "Kommunikations- & Argumentationstechniken", path: "p_KA" },
+      { title: "Präsentationstechniken", path: "p_Pt" },
+      { title: "Visualisierung & Mediengestaltung", path: "p_VM" },
+      { title: "Tabellenkalkulation", path: "p_Tk" },
+      { title: "Präsentationssoftware", path: "p_Ps" },
+      { title: "Multimediale Content-Tools", path: "p_MCT" },
+      { title: "Corporate Identity (CI)", path: "p_CI" },
+      { title: "Marktübliche Präsentationssoftware", path: "p_MPs" }, //hier bin ich
+      {
+        title: "Präsentationsmanagement (Vorbereitung/Nachbereitung)",
+        path: "p_VuNb",
+      },
+      { title: "Präsentationselemente: Regeln & Farbwirkung", path: "p_PeRF" },
+      { title: "Rhetorik & Sprechtechnik", path: "p_RSt" },
+    ],
+  },
+  {
+    id: "trends",
+    title: "Trends",
+    subtopics: [
+      {
+        title: "Auswirkungen von IT-Trends (Wirtschaft, Soziales, Beruf)",
+        path: "t_AT",
+      },
+      { title: "Einflussfaktoren auf IT-Einsatzfelder", path: "t_EfE" },
+      { title: "Trend- & Innovationsfelder (Identifikation)", path: "t_TI" },
+      { title: "Informationen zu Unternehmenseinfluss", path: "t_IzU" },
+      {
+        title: "Aktive Informationsbeschaffung (Newsfeeds/Newsletter)",
+        path: "t_AINews",
+      },
+      { title: "Quellen zur Trendwahrnehmung (Messen, Foren)", path: "t_QT" },
+      { title: "Prüfung neuer IT-Einsatzgebiete", path: "t_PITe" },
+    ],
+  },
+  {
+    id: "datenbanken",
+    title: "Datenbanken",
+    subtopics: [
+      { title: "SQL Grundlagen", path: "db_sql" },
+      { title: "Normalisierung", path: "db_norm" },
+    ],
+  },
+  {
+    id: "quali",
+    title: "Qualitätssicherung",
+    subtopics: [
+      { title: "Testverfahren", path: "qs_test" },
+      { title: "Metriken", path: "qs_metrik" },
+    ],
+  },
+  {
+    id: "itsicher",
+    title: "IT-Sicherheit",
+    subtopics: [
+      { title: "Authentifizierung", path: "sec_auth" },
+      { title: "Kryptografie", path: "sec_krypto" },
+    ],
+  },
+  {
+    id: "daten",
+    title: "Datenschutz",
+    subtopics: [
+      { title: "DSGVO", path: "dsgvo" },
+      { title: "Rechte Betroffener", path: "ds_rechte" },
+    ],
+  },
+  {
+    id: "netzwerk",
+    title: "Netzwerktechnik",
+    subtopics: [
+      { title: "OSI-Modell", path: "nt_osi" },
+      { title: "IP-Adressierung", path: "nt_ip" },
+    ],
+  },
+  {
+    id: "speicher",
+    title: "Speicherlösungen",
+    subtopics: [
+      { title: "RAID", path: "sp_raid" },
+      { title: "Cloud-Speicher", path: "sp_cloud" },
+    ],
+  },
+  {
+    id: "software",
+    title: "Softwarelösungen",
+    subtopics: [
+      { title: "Agile Methoden", path: "sw_agile" },
+      { title: "Lizenzmodelle", path: "sw_lizenz" },
+    ],
+  },
+];
 
 const Flashcards: React.FC = () => {
-  const [lernfelder, setLernfelder] = useState<Topic[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [openTopic, setOpenTopic] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentFlashcards, setCurrentFlashcards] = useState<Flashcard[]>([]);
-  const [currentSubtopicTitle, setCurrentSubtopicTitle] = useState("");
-
-  useEffect(() => {
-    const fetchAllData = async () => {
-      try {
-        setIsLoading(true);
-        setError(null);
-        const katResponse = await fetch("http://localhost:3000/Kategorie");
-        const subKatResponse = await fetch(
-          "http://localhost:3000/Unterkategorie"
-        );
-
-        if (!katResponse.ok || !subKatResponse.ok) {
-          throw new Error("Fehler beim Abruf der Daten.");
-        }
-
-        const rawKategorien: RawKategorie[] = await katResponse.json();
-        const rawUnterkategorien: RawUnterkategorie[] =
-          await subKatResponse.json();
-
-        const gemappteLernfelder: Topic[] = rawKategorien.map((kat) => {
-          const subtopics: Subtopic[] = rawUnterkategorien
-            .filter((sub) => sub.KategorieID === kat.ID)
-            .map((sub) => ({
-              title: sub.Titel,
-              path: slugify(sub.Titel),
-              subkategorieId: sub.ID,
-            }));
-
-          return {
-            id: kat.ID,
-            title: kat.KategorieName,
-            subtopics: subtopics,
-          } as Topic;
-        });
-
-        setLernfelder(gemappteLernfelder);
-      } catch (err) {
-        console.error("Fehler beim Datenabruf:", err);
-        setError("Die Lernfelder konnten nicht geladen werden.");
-        setLernfelder([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchAllData();
-  }, []);
-
-  const handleSubtopicClick = async (
-    subtopicId: string,
-    subtopicTitle: string
-  ) => {
-    setCurrentSubtopicTitle(subtopicTitle);
-
-    try {
-      const response = await fetch(
-        `http://localhost:3000/flashcards/${subtopicId}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Flashcards konnten nicht geladen werden.");
-      }
-
-      const cards: Flashcard[] = await response.json();
-
-      if (cards.length === 0) {
-        setError(`Keine Lernkarten für ${subtopicTitle} gefunden.`);
-        return;
-      }
-
-      setCurrentFlashcards(cards);
-      setIsModalOpen(true);
-    } catch (err) {
-      console.error("Fehler beim Laden der Karten:", err);
-      setError("Fehler beim Laden der Lernkarten.");
-    }
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setCurrentFlashcards([]);
-  };
 
   const handleToggle = (topicId: string) => {
     setOpenTopic(openTopic === topicId ? null : topicId);
   };
-
-  if (isLoading) {
-    return (
-      <div className="flashcards-loadingwrapper">
-        <h1>Lernkarten</h1>
-        <p>Lernfelder werden geladen...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flashcards-loadingwrapper">
-        <h1>Lernkarten</h1>
-        <p style={{ color: "red" }}>{error}</p>
-        <Button variant="outlined" onClick={() => window.location.reload()}>
-          Erneut versuchen
-        </Button>
-      </div>
-    );
-  }
 
   return (
     <>
@@ -164,7 +171,7 @@ const Flashcards: React.FC = () => {
         <div className="grid-wrapper">
           <h2>Lernfelder</h2>
           <div className="category-grid">
-            {lernfelder.map((topic) => (
+            {initialLernfelder.map((topic) => (
               <div
                 key={topic.id}
                 className={`topic-container ${
@@ -183,18 +190,13 @@ const Flashcards: React.FC = () => {
                 {openTopic === topic.id && (
                   <div className="subtopic-menu">
                     {topic.subtopics.map((subtopic) => (
-                      <button
+                      <Link
                         key={subtopic.path}
-                        onClick={() =>
-                          handleSubtopicClick(
-                            subtopic.subkategorieId,
-                            subtopic.title
-                          )
-                        }
+                        to={`/flashcards/${subtopic.path}`}
                         className="subtopic-link"
                       >
                         {subtopic.title}
-                      </button>
+                      </Link>
                     ))}
                   </div>
                 )}
@@ -206,14 +208,6 @@ const Flashcards: React.FC = () => {
           zurück zur Startseite
         </Button>
       </div>
-
-      {isModalOpen && (
-        <FlashcardModal
-          title={currentSubtopicTitle}
-          cards={currentFlashcards}
-          onClose={handleCloseModal}
-        />
-      )}
     </>
   );
 };
