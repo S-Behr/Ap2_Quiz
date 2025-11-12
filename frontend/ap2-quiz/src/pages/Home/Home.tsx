@@ -10,11 +10,12 @@ function Home() {
         <div className="btn-wrapper">
           <Button
             variant="outlined"
+            size="large"
             component={Link}
             to="/Flashcards"
             sx={{
-              borderColor: "#ff4b4b", // rote Umrandung
-              color: "#ff4b4b", // Textfarbe
+              borderColor: "#ff4b4b",
+              color: "#ff4b4b",
               borderRadius: "8px",
               padding: "10px 20px",
               fontWeight: 500,
@@ -33,6 +34,7 @@ function Home() {
 
           <Button
             variant="outlined"
+            size="large"
             component={Link}
             to="/apQuestions"
             sx={{

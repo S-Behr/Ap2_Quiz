@@ -31,6 +31,27 @@ const ApQuestions: React.FC = () => {
       >
         AP 2 Fragen
       </Typography>
+      <Typography
+        variant="body1"
+        component="p"
+        gutterBottom
+        sx={{
+          fontWeight: 700,
+          color: "#ff6a88",
+          mb: 4,
+          textAlign: "center",
+          width: { xs: "50%", md: "40%" },
+          backgroundColor: "rgba(255, 106, 136, 0.1)",
+          padding: "15px 20px",
+          borderRadius: "8px",
+          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+        }}
+      >
+        Willkommen im Prüfungsbereich AP 2. Hier können Sie sich gezielt auf
+        Ihre Abschlussprüfung Teil 2 vorbereiten. Wählen Sie zwischen dem
+        flexiblen Übungsmodus mit sofortigem Feedback oder der realistischen
+        Prüfungssimulation mit Zeitlimit.
+      </Typography>
 
       <Box
         className="button-group"
@@ -44,6 +65,8 @@ const ApQuestions: React.FC = () => {
         <Button
           variant="contained"
           size="large"
+          component={Link}
+          to="/practiceQuiz"
           sx={{
             background: "linear-gradient(90deg, #ff7f7f, #ff4b4b)",
             color: "#fff",
@@ -56,15 +79,18 @@ const ApQuestions: React.FC = () => {
             "&:hover": {
               background: "linear-gradient(90deg, #ff4b4b, #ff1f1f)",
               boxShadow: "0 8px 22px rgba(0,0,0,0.2)",
+              color: "#fff",
             },
           }}
         >
-          Übe dein Wissen
+          Starte das Übungsquiz
         </Button>
 
         <Button
           variant="contained"
           size="large"
+          component={Link}
+          to="/examQuiz"
           sx={{
             background: "linear-gradient(90deg, #ff7f7f, #ff4b4b)",
             color: "#fff",
@@ -77,10 +103,11 @@ const ApQuestions: React.FC = () => {
             "&:hover": {
               background: "linear-gradient(90deg, #ff4b4b, #ff1f1f)",
               boxShadow: "0 8px 22px rgba(0,0,0,0.2)",
+              color: "#fff",
             },
           }}
         >
-          Teste dein Wissen!
+          Starte das Examensquiz
         </Button>
       </Box>
       <Button

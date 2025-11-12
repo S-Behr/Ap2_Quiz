@@ -1,12 +1,7 @@
-/* --- Wrapper --- */
 .flashcards-wrapper {
   min-width: 100%;
   min-height: 100vh;
-  background: linear-gradient(
-    145deg,
-    #ffecd2,
-    #fcb69f
-  ); /* warme, sanfte Farben */
+  background: linear-gradient(145deg, #ffecd2, #fcb69f);
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -16,7 +11,6 @@
   color: #333;
 }
 
-/* --- Titel --- */
 h2 {
   margin-bottom: 2rem;
   font-size: 2rem;
@@ -27,7 +21,6 @@ h2 {
   -webkit-text-fill-color: transparent;
 }
 
-/* --- Grid Wrapper --- */
 .grid-wrapper {
   display: flex;
   flex-direction: column;
@@ -35,7 +28,6 @@ h2 {
   width: 80%;
 }
 
-/* --- Category Grid (4 Spalten) --- */
 .category-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -43,7 +35,6 @@ h2 {
   margin-bottom: 2rem;
 }
 
-/* --- Topic Container --- */
 .topic-container {
   background: linear-gradient(135deg, #ffe3e3, #ffd6d6);
   border-radius: 12px;
@@ -59,7 +50,6 @@ h2 {
   transform: scale(1.03);
 }
 
-/* --- Topic Header --- */
 .topic-header {
   width: 100%;
   padding: 15px 20px;
@@ -81,7 +71,6 @@ h2 {
   color: #fff;
 }
 
-/* --- Subtopic Menu --- */
 .subtopic-menu {
   display: flex;
   flex-wrap: wrap;
@@ -90,7 +79,6 @@ h2 {
   gap: 0.5rem;
 }
 
-/* --- Subtopic Link --- */
 .subtopic-link {
   padding: 8px 15px;
   border-radius: 8px;
@@ -109,7 +97,6 @@ h2 {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
 }
 
-/* --- Loading Wrapper --- */
 .flashcards-loadingwrapper {
   background: linear-gradient(145deg, #ffecd2, #fcb69f);
   overflow: hidden;

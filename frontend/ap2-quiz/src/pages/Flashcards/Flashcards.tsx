@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./flashcards.css";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
 import FlashcardModal from "./FlashcardModal";
 
@@ -140,7 +140,8 @@ const Flashcards: React.FC = () => {
     return (
       <div className="flashcards-loadingwrapper">
         <h1>Lernkarten</h1>
-        <p>Lernfelder werden geladen...</p>
+        <CircularProgress className="loading-spinner" />
+        <span>Lernkarten werden geladen …</span>
       </div>
     );
   }
@@ -207,14 +208,14 @@ const Flashcards: React.FC = () => {
           component={Link}
           to="/"
           sx={{
-            borderColor: "#ff4b4b", // rote Umrandung
-            color: "#ff4b4b", // Textfarbe
+            borderColor: "#ff4b4b",
+            color: "#ff4b4b",
             borderRadius: "8px",
             padding: "8px 20px",
             fontWeight: 500,
             "&:hover": {
-              backgroundColor: "#ff4b4b", // Hintergrundfarbe beim Hover
-              color: "#fff", // Textfarbe beim Hover
+              backgroundColor: "#ff4b4b",
+              color: "#fff",
             },
             transition: "all 0.3s ease",
           }}
