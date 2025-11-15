@@ -143,3 +143,10 @@
   margin-bottom: 1.5rem;
   filter: drop-shadow(0 0 5px rgba(77, 208, 225, 0.8));
 }
+
+.btn-wrapper-endPracticequiz {
+  display: flex;
+  justify-content: center;
+  flex-direction: column-reverse;
+  margin-top: 2rem;
+}

@@ -189,10 +189,20 @@ const PracticeQuiz: React.FC = () => {
                   Nächste Frage
                 </Button>
               ) : (
-                <Typography className="quiz-finished">
-                  {" "}
-                  Quiz beendet!
-                </Typography>
+                <div className="btn-wrapper-endPracticequiz">
+                  <Typography className="quiz-finished">
+                    {" "}
+                    Quiz beendet!
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    className="quiz-btn primary"
+                    onClick={() => window.location.reload()}
+                    sx={{ mt: 3 }}
+                  >
+                    Übungsquiz wiederholen
+                  </Button>
+                </div>
               )}
             </CardContent>
           </Card>
