@@ -25,19 +25,19 @@ interface FrageMitAntworten {
 
 interface Fragenart {
   FragenartID: number;
-  Art: "Singlechoise" | "Multiplichoise";
+  Art: "Singlechoise" | "Multiplechoise";
 }
 
 interface Antwortmoeglichkeit {
   AntwortID: number;
   QuizFrageID: number;
   AntwortenText: string;
-  IstRichtig: string;
+  IstRichtig: boolean;
 }
 
 interface Quizfrage {
   FrageID: number;
-  FragenartID: number;
+  ArtID: number;
   FragenText: string;
   Bild?: string | null;
 }
@@ -64,9 +64,7 @@ const PracticeQuiz: React.FC = () => {
       ]);
 
       const mapped: FrageMitAntworten[] = fragen.map((f: Quizfrage) => {
-        const art = arten.find(
-          (a: Fragenart) => a.FragenartID === f.FragenartID
-        );
+        const art = arten.find((a: Fragenart) => a.FragenartID === f.ArtID);
         const relatedAnswers = antworten.filter(
           (a: Antwortmoeglichkeit) => a.QuizFrageID === f.FrageID
         );
@@ -78,12 +76,12 @@ const PracticeQuiz: React.FC = () => {
           answers: relatedAnswers.map((r: Antwortmoeglichkeit) => ({
             id: r.AntwortID,
             text: r.AntwortenText,
-            isCorrect: r.IstRichtig === "true",
+            isCorrect: r.IstRichtig === true,
           })),
         };
       });
 
-      const random5 = mapped.sort(() => 0.5 - Math.random()).slice(0, 5);
+      const random5 = mapped.sort(() => 0.5 - Math.random()).slice(0, 16);
       setQuestions(random5);
       setLoading(false);
     };
@@ -113,9 +111,9 @@ const PracticeQuiz: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flashcards-loadingwrapper">
+      <div className="practice-loadingwrapper">
         <CircularProgress className="loading-spinner" />
-        <span>Fragen werden geladen …</span>
+        <span>Übungsquiz wird geladen ...</span>
       </div>
     );
   }
@@ -123,13 +121,13 @@ const PracticeQuiz: React.FC = () => {
   const q = questions[current];
   if (!q) {
     return (
-      <div className="flashcards-loadingwrapper">Keine Fragen gefunden.</div>
+      <div className="practice-loadingwrapper">Keine Fragen gefunden.</div>
     );
   }
 
   return (
     <>
-      <div className="flashcards-wrapper">
+      <div className="practice-wrapper">
         <h2> Übungsquiz </h2>
         <div className="grid-wrapper">
           <Card className="quiz-card">

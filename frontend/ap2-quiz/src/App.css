@@ -1,4 +1,3 @@
-/* --- Wrapper --- */
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -6,51 +5,54 @@
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(
-    145deg,
-    #ffecd2,
-    #fcb69f
-  ); /* moderner Farbverlauf */
-  font-family: "Inter", sans-serif;
-  color: #333;
+  background: radial-gradient(
+    circle at top left,
+    #1a0033 0%,
+    #0d001a 50%,
+    #05000f 100%
+  );
+  font-family: "Orbitron", sans-serif;
+  color: #e0f7fa;
 }
 
-/* --- Button Wrapper --- */
 .btn-wrapper {
   display: flex;
-  justify-content: center; /* zentriert die Buttons */
-  gap: 1rem;
-  margin-top: 2rem;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
   flex-wrap: wrap;
 }
 
-/* --- Buttons --- */
 .btn-wrapper button,
 .btn-wrapper Button {
-  /* deckt HTML-Buttons und MUI Buttons ab */
-  background: linear-gradient(90deg, #ff7f7f, #ff4b4b);
-  color: #fff;
+  background: linear-gradient(90deg, #4dd0e1, #81d4fa);
+  color: #0d001a;
   border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-weight: 500;
+  border-radius: 6px;
+  padding: 12px 25px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-transform: none; /* damit MUI Buttons nicht automatisch groß schreiben */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 0 10px rgba(77, 208, 225, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .btn-wrapper button:hover,
 .btn-wrapper Button:hover {
-  background: linear-gradient(90deg, #ff4b4b, #ff1f1f);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(90deg, #81d4fa, #4dd0e1);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 0 20px rgba(77, 208, 225, 0.8), 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
-/* Optional: responsive Anpassung */
 @media (max-width: 600px) {
   .btn-wrapper {
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 1.5rem;
+  }
+  .btn-wrapper button,
+  .btn-wrapper Button {
+    width: 80%;
+    margin: 0 auto;
   }
 }

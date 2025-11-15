@@ -94,6 +94,14 @@ const FlashcardModal: React.FC<FlashcardModalProps> = ({
     );
   };
 
+  const SPACE_BG = "rgba(33, 33, 50, 0.95)";
+  const NEON_CYAN_GRADIENT = "linear-gradient(90deg, #4dd0e1, #81d4fa)";
+  const NEON_CYAN_COLOR = "#4dd0e1";
+  const TEXT_COLOR = "#e0f7fa";
+  const PRIMARY_BUTTON_BG = "linear-gradient(90deg, #4dd0e1, #81d4fa)";
+  const SECONDARY_BUTTON_COLOR = "#4dd0e1";
+  const SECONDARY_BUTTON_HOVER_BG = "rgba(77, 208, 225, 0.1)";
+
   return (
     <Dialog
       open={true}
@@ -102,9 +110,12 @@ const FlashcardModal: React.FC<FlashcardModalProps> = ({
       maxWidth="sm"
       PaperProps={{
         sx: {
-          background: "linear-gradient(145deg, #ffe3e3, #ffd6d6)",
-          borderRadius: "16px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+          background: SPACE_BG,
+          borderRadius: "12px",
+          boxShadow:
+            "0 0 25px rgba(77, 208, 225, 0.4), 0 10px 40px rgba(0,0,0,0.4)",
+          color: TEXT_COLOR,
+          fontFamily: "'Orbitron', sans-serif",
         },
       }}
     >
@@ -113,20 +124,23 @@ const FlashcardModal: React.FC<FlashcardModalProps> = ({
           textAlign: "center",
           fontWeight: 700,
           fontSize: "1.6rem",
-          background: "linear-gradient(90deg, #ff6a88, #ff99ac)",
+          background: NEON_CYAN_GRADIENT,
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
+          textShadow: "0 0 8px rgba(77, 208, 225, 0.4)",
+          borderBottom: `1px solid rgba(77, 208, 225, 0.2)`,
+          paddingBottom: 2,
         }}
       >
         {title} ({currentIndex + 1} von {cards.length})
       </DialogTitle>
 
-      <DialogContent dividers>
+      <DialogContent dividers sx={{ borderColor: "rgba(77, 208, 225, 0.2)" }}>
         <div
           style={{
-            minHeight: "200px",
-            padding: "20px",
-            borderRadius: "16px",
+            minHeight: "250px",
+            padding: "25px",
+            borderRadius: "12px",
             cursor: "pointer",
             marginBottom: "20px",
             display: "flex",
@@ -134,25 +148,35 @@ const FlashcardModal: React.FC<FlashcardModalProps> = ({
             justifyContent: "center",
             alignItems: "center",
             background: showAnswer
-              ? "linear-gradient(135deg, #ffb6b6, #ff7f7f)"
-              : "linear-gradient(135deg, #ffe3e3, #ffd6d6)",
-            boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
+              ? "linear-gradient(135deg, #1f0040, #2a0050)"
+              : "rgba(15, 0, 30, 0.9)",
+            boxShadow: showAnswer
+              ? "0 0 20px rgba(129, 212, 250, 0.6)"
+              : "0 0 10px rgba(77, 208, 225, 0.3)",
             transition: "all 0.3s ease",
-            color: showAnswer ? "#fff" : "#333",
+            color: TEXT_COLOR,
             textAlign: "center",
-            fontWeight: showAnswer ? "700" : "400",
+            fontWeight: showAnswer ? "600" : "400",
             whiteSpace: "pre-line",
-            lineHeight: 1.6,
+            lineHeight: 1.7,
+            border: `1px solid ${
+              showAnswer ? NEON_CYAN_COLOR : "rgba(77, 208, 225, 0.2)"
+            }`,
           }}
           onClick={() => setShowAnswer(!showAnswer)}
         >
           <Typography
             variant="caption"
-            sx={{ mb: 1, color: showAnswer ? "#f0f0f0" : "#666" }}
+            sx={{
+              mb: 1.5,
+              color: NEON_CYAN_COLOR,
+              fontWeight: 700,
+              textShadow: "0 0 5px rgba(77, 208, 225, 0.4)",
+            }}
           >
             {showAnswer ? "Antwort" : "Frage"}
           </Typography>
-          <Typography variant="body1">
+          <Typography variant="h6" component="p" sx={{ color: TEXT_COLOR }}>
             {showAnswer
               ? formatText(currentCard.antwort)
               : formatText(currentCard.frage)}
@@ -164,9 +188,15 @@ const FlashcardModal: React.FC<FlashcardModalProps> = ({
             onClick={handlePrev}
             variant="outlined"
             sx={{
-              borderColor: "#ff4b4b",
-              color: "#ff4b4b",
-              "&:hover": { backgroundColor: "#ff4b4b", color: "#fff" },
+              borderColor: SECONDARY_BUTTON_COLOR,
+              color: SECONDARY_BUTTON_COLOR,
+              textTransform: "uppercase",
+              padding: "8px 15px",
+              "&:hover": {
+                backgroundColor: SECONDARY_BUTTON_HOVER_BG,
+                color: TEXT_COLOR,
+                borderColor: NEON_CYAN_COLOR,
+              },
             }}
           >
             Zurück
@@ -176,9 +206,16 @@ const FlashcardModal: React.FC<FlashcardModalProps> = ({
             onClick={() => setShowAnswer(!showAnswer)}
             variant="contained"
             sx={{
-              background: "linear-gradient(90deg, #ff7f7f, #ff4b4b)",
+              background: PRIMARY_BUTTON_BG,
+              color: "#0d001a",
+              fontWeight: 600,
+              textTransform: "uppercase",
+              padding: "10px 20px",
+              boxShadow: "0 0 10px rgba(77, 208, 225, 0.5)",
               "&:hover": {
-                background: "linear-gradient(90deg, #ff4b4b, #ff1f1f)",
+                background: "linear-gradient(90deg, #81d4fa, #4dd0e1)",
+                boxShadow: "0 0 20px rgba(77, 208, 225, 0.8)",
+                transform: "translateY(-1px)",
               },
             }}
           >
@@ -189,9 +226,15 @@ const FlashcardModal: React.FC<FlashcardModalProps> = ({
             onClick={handleNext}
             variant="outlined"
             sx={{
-              borderColor: "#ff4b4b",
-              color: "#ff4b4b",
-              "&:hover": { backgroundColor: "#ff4b4b", color: "#fff" },
+              borderColor: SECONDARY_BUTTON_COLOR,
+              color: SECONDARY_BUTTON_COLOR,
+              textTransform: "uppercase",
+              padding: "8px 15px",
+              "&:hover": {
+                backgroundColor: SECONDARY_BUTTON_HOVER_BG,
+                color: TEXT_COLOR,
+                borderColor: NEON_CYAN_COLOR,
+              },
             }}
           >
             Weiter
@@ -202,10 +245,15 @@ const FlashcardModal: React.FC<FlashcardModalProps> = ({
       <Button
         onClick={onClose}
         sx={{
-          margin: "10px auto",
+          margin: "20px auto",
           display: "block",
-          color: "#ff4b4b",
-          "&:hover": { backgroundColor: "#ffe3e3" },
+          color: NEON_CYAN_COLOR,
+          fontWeight: 600,
+          textTransform: "uppercase",
+          "&:hover": {
+            backgroundColor: SECONDARY_BUTTON_HOVER_BG,
+            color: TEXT_COLOR,
+          },
         }}
       >
         Schließen

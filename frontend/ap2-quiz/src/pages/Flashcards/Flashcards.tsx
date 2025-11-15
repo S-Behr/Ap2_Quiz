@@ -214,7 +214,7 @@ const Flashcards: React.FC = () => {
             padding: "8px 20px",
             fontWeight: 500,
             "&:hover": {
-              backgroundColor: "#ff4b4b",
+              background: "linear-gradient(90deg, #fa2828ff, #ce4141ff)",
               color: "#fff",
             },
             transition: "all 0.3s ease",

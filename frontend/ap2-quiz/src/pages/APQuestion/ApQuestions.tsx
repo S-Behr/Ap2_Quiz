@@ -14,7 +14,10 @@ const ApQuestions: React.FC = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(145deg, #ffecd2, #fcb69f)",
+        background:
+          "radial-gradient(circle at top left, #1a0033 0%, #0d001a 50%, #05000f 100%)",
+        color: "#e0f7fa",
+        fontFamily: "'Orbitron', sans-serif",
       }}
     >
       <Typography
@@ -23,10 +26,12 @@ const ApQuestions: React.FC = () => {
         gutterBottom
         sx={{
           fontWeight: 700,
-          background: "linear-gradient(90deg, #ff6a88, #ff99ac)",
+          background: "linear-gradient(90deg, #4dd0e1, #81d4fa)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
           mb: 4,
+          textShadow: "0 0 10px rgba(77, 208, 225, 0.5)",
+          letterSpacing: 2,
         }}
       >
         AP 2 Fragen
@@ -36,15 +41,16 @@ const ApQuestions: React.FC = () => {
         component="p"
         gutterBottom
         sx={{
-          fontWeight: 700,
-          color: "#ff6a88",
-          mb: 4,
+          fontWeight: 500,
+          color: "#81d4fa",
+          mb: 5,
           textAlign: "center",
-          width: { xs: "50%", md: "40%" },
-          backgroundColor: "rgba(255, 106, 136, 0.1)",
-          padding: "15px 20px",
-          borderRadius: "8px",
-          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+          width: { xs: "90%", sm: "70%", md: "50%" },
+          backgroundColor: "rgba(33, 33, 50, 0.7)",
+          padding: "20px 25px",
+          borderRadius: "12px",
+          boxShadow: "0 0 15px rgba(77, 208, 225, 0.2)",
+          border: "1px solid rgba(77, 208, 225, 0.3)",
         }}
       >
         Willkommen im Prüfungsbereich AP 2. Hier können Sie sich gezielt auf
@@ -68,18 +74,20 @@ const ApQuestions: React.FC = () => {
           component={Link}
           to="/practiceQuiz"
           sx={{
-            background: "linear-gradient(90deg, #ff7f7f, #ff4b4b)",
-            color: "#fff",
-            borderRadius: "8px",
-            padding: "12px 24px",
-            fontWeight: 500,
-            textTransform: "none",
-            boxShadow: "0 6px 18px rgba(0,0,0,0.15)",
-            transition: "all 0.3s ease",
+            background: "linear-gradient(90deg, #4dd0e1, #81d4fa)",
+            color: "#0d001a",
+            borderRadius: "6px",
+            padding: "12px 25px",
+            fontWeight: 600,
+            textTransform: "uppercase",
+            boxShadow: "0 0 10px rgba(77, 208, 225, 0.5)",
+            transition: "all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)",
             "&:hover": {
-              background: "linear-gradient(90deg, #ff4b4b, #ff1f1f)",
-              boxShadow: "0 8px 22px rgba(0,0,0,0.2)",
-              color: "#fff",
+              background: "linear-gradient(90deg, #81d4fa, #4dd0e1)",
+              boxShadow:
+                "0 0 20px rgba(77, 208, 225, 0.8), 0 4px 15px rgba(0, 0, 0, 0.4)",
+              transform: "translateY(-2px)",
+              color: "#0d001a",
             },
           }}
         >
@@ -92,43 +100,48 @@ const ApQuestions: React.FC = () => {
           component={Link}
           to="/examQuiz"
           sx={{
-            background: "linear-gradient(90deg, #ff7f7f, #ff4b4b)",
-            color: "#fff",
-            borderRadius: "8px",
-            padding: "12px 24px",
-            fontWeight: 500,
-            textTransform: "none",
-            boxShadow: "0 6px 18px rgba(0,0,0,0.15)",
-            transition: "all 0.3s ease",
+            background: "linear-gradient(90deg, #4dd0e1, #81d4fa)",
+            color: "#0d001a",
+            borderRadius: "6px",
+            padding: "12px 25px",
+            fontWeight: 600,
+            textTransform: "uppercase",
+            boxShadow: "0 0 10px rgba(77, 208, 225, 0.5)",
+            transition: "all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)",
             "&:hover": {
-              background: "linear-gradient(90deg, #ff4b4b, #ff1f1f)",
-              boxShadow: "0 8px 22px rgba(0,0,0,0.2)",
-              color: "#fff",
+              background: "linear-gradient(90deg, #81d4fa, #4dd0e1)",
+              boxShadow:
+                "0 0 20px rgba(77, 208, 225, 0.8), 0 4px 15px rgba(0, 0, 0, 0.4)",
+              transform: "translateY(-2px)",
+              color: "#0d001a",
             },
           }}
         >
           Starte das Examensquiz
         </Button>
       </Box>
+
       <Button
         variant="contained"
         size="large"
         component={Link}
         to="/"
         sx={{
-          background: "linear-gradient(90deg, #ff7f7f, #ff4b4b)",
+          borderColor: "#ff4b4b",
           color: "#fff",
-          borderRadius: "8px",
-          padding: "12px 24px",
-          marginTop: "2rem",
-          fontWeight: 500,
-          textTransform: "none",
-          boxShadow: "0 6px 18px rgba(0,0,0,0.15)",
-          transition: "all 0.3s ease",
+          borderRadius: "6px",
+          padding: "12px 25px",
+          marginTop: "3rem",
+          fontWeight: 600,
+          textTransform: "uppercase",
+          boxShadow: "0 0 8px rgba(0, 188, 212, 0.4)",
+          transition: "all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)",
           "&:hover": {
-            background: "linear-gradient(90deg, #ff4b4b, #ff1f1f)",
-            boxShadow: "0 8px 22px rgba(0,0,0,0.2)",
-            color: "#fff",
+            background: "linear-gradient(90deg, #fa2828ff, #ce4141ff)",
+            boxShadow:
+              "0 0 15px rgba(0, 188, 212, 0.7), 0 4px 10px rgba(0, 0, 0, 0.3)",
+            transform: "translateY(-2px)",
+            color: "#05000f",
           },
         }}
       >
