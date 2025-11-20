@@ -150,3 +150,7 @@
   flex-direction: column-reverse;
   margin-top: 2rem;
 }
+
+.MuiFormControlLabel-root.Mui-disabled .MuiFormControlLabel-label {
+  color: whitesmoke !important;
+}

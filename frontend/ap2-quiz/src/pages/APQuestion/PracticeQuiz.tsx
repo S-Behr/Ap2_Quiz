@@ -19,7 +19,6 @@ interface FrageMitAntworten {
   answers: {
     id: number;
     text: string;
-    isCorrect: boolean;
   }[];
 }
 
@@ -32,7 +31,7 @@ interface Antwortmoeglichkeit {
   AntwortID: number;
   QuizFrageID: number;
   AntwortenText: string;
-  IstRichtig: boolean;
+  IstRichtig?: boolean;
 }
 
 interface Quizfrage {
@@ -48,42 +47,47 @@ const PracticeQuiz: React.FC = () => {
   const [selected, setSelected] = useState<number[]>([]);
   const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [correctAnswerIds, setCorrectAnswerIds] = useState<number[]>([]);
 
   useEffect(() => {
     const fetchQuizData = async () => {
-      const [fragenRes, antwortenRes, artenRes] = await Promise.all([
-        fetch("http://localhost:3000/Quizfragen"),
-        fetch("http://localhost:3000/Antwortmoeglichkeiten"),
-        fetch("http://localhost:3000/Fragenart"),
-      ]);
+      try {
+        const [fragenRes, antwortenRes, artenRes] = await Promise.all([
+          fetch("http://localhost:3000/Quizfragen"),
+          fetch("http://localhost:3000/Antwortmoeglichkeiten"),
+          fetch("http://localhost:3000/Fragenart"),
+        ]);
 
-      const [fragen, antworten, arten] = await Promise.all([
-        fragenRes.json(),
-        antwortenRes.json(),
-        artenRes.json(),
-      ]);
+        const [fragen, antworten, arten] = await Promise.all([
+          fragenRes.json(),
+          antwortenRes.json(),
+          artenRes.json(),
+        ]);
 
-      const mapped: FrageMitAntworten[] = fragen.map((f: Quizfrage) => {
-        const art = arten.find((a: Fragenart) => a.FragenartID === f.ArtID);
-        const relatedAnswers = antworten.filter(
-          (a: Antwortmoeglichkeit) => a.QuizFrageID === f.FrageID
-        );
+        const mapped: FrageMitAntworten[] = fragen.map((f: Quizfrage) => {
+          const art = arten.find((a: Fragenart) => a.FragenartID === f.ArtID);
+          const relatedAnswers = antworten.filter(
+            (a: Antwortmoeglichkeit) => a.QuizFrageID === f.FrageID
+          );
 
-        return {
-          id: f.FrageID,
-          text: f.FragenText,
-          type: art?.Art === "Multiplichoise" ? "multiple" : "single",
-          answers: relatedAnswers.map((r: Antwortmoeglichkeit) => ({
-            id: r.AntwortID,
-            text: r.AntwortenText,
-            isCorrect: r.IstRichtig === true,
-          })),
-        };
-      });
+          return {
+            id: f.FrageID,
+            text: f.FragenText,
+            type: art?.Art === "Multiplichoise" ? "multiple" : "single",
+            answers: relatedAnswers.map((r: Antwortmoeglichkeit) => ({
+              id: r.AntwortID,
+              text: r.AntwortenText,
+            })),
+          };
+        });
 
-      const random5 = mapped.sort(() => 0.5 - Math.random()).slice(0, 16);
-      setQuestions(random5);
-      setLoading(false);
+        const random5 = mapped.sort(() => 0.5 - Math.random()).slice(0, 5);
+        setQuestions(random5);
+      } catch (error) {
+        console.error("Fehler beim Laden der Quizdaten:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchQuizData();
@@ -102,10 +106,33 @@ const PracticeQuiz: React.FC = () => {
     }
   };
 
-  const handleCheck = () => setShowResult(true);
+  const handleCheck = async () => {
+    const questionId = questions[current].id;
+
+    try {
+      const response = await fetch("http://localhost:3000/check-answer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          questionId: questionId,
+          selectedAnswerIds: selected,
+        }),
+      });
+
+      const result = await response.json();
+
+      setCorrectAnswerIds(result.correctIds || []);
+      setShowResult(true);
+    } catch (error) {
+      console.error("Fehler bei der Überprüfung der Antwort:", error);
+      setShowResult(true);
+    }
+  };
+
   const nextQuestion = () => {
     setShowResult(false);
     setSelected([]);
+    setCorrectAnswerIds([]);
     setCurrent((prev) => prev + 1);
   };
 
@@ -141,9 +168,11 @@ const PracticeQuiz: React.FC = () => {
               </Typography>
 
               {q.answers.map((a) => {
-                const isCorrect = a.isCorrect && showResult;
+                const isCorrect = correctAnswerIds.includes(a.id) && showResult;
                 const isWrong =
-                  selected.includes(a.id) && showResult && !a.isCorrect;
+                  selected.includes(a.id) &&
+                  showResult &&
+                  !correctAnswerIds.includes(a.id);
                 return (
                   <div
                     key={a.id}
@@ -157,11 +186,13 @@ const PracticeQuiz: React.FC = () => {
                           <Radio
                             checked={selected.includes(a.id)}
                             onChange={() => handleSelect(a.id)}
+                            disabled={showResult}
                           />
                         ) : (
                           <Checkbox
                             checked={selected.includes(a.id)}
                             onChange={() => handleSelect(a.id)}
+                            disabled={showResult}
                           />
                         )
                       }
@@ -191,14 +222,14 @@ const PracticeQuiz: React.FC = () => {
               ) : (
                 <div className="btn-wrapper-endPracticequiz">
                   <Typography className="quiz-finished">
-                    {" "}
                     Quiz beendet!
                   </Typography>
+
                   <Button
                     variant="contained"
                     className="quiz-btn primary"
                     onClick={() => window.location.reload()}
-                    sx={{ mt: 3 }}
+                    sx={{ mb: 3 }}
                   >
                     Übungsquiz wiederholen
                   </Button>

@@ -13,6 +13,13 @@ import {
 import { Link } from "react-router-dom";
 import "./quiz.css";
 
+interface ExamResult {
+  correctCount: number;
+  totalQuestions: number;
+  percentage: number;
+  hasPassed: boolean;
+}
+
 interface FrageMitAntworten {
   id: number;
   text: string;
@@ -20,7 +27,6 @@ interface FrageMitAntworten {
   answers: {
     id: number;
     text: string;
-    isCorrect: boolean;
   }[];
 }
 
@@ -33,7 +39,6 @@ interface Antwortmoeglichkeit {
   AntwortID: number;
   QuizFrageID: number;
   AntwortenText: string;
-  IstRichtig: boolean;
 }
 
 interface Quizfrage {
@@ -54,42 +59,47 @@ const ExamQuiz: React.FC = () => {
   const [examFinished, setExamFinished] = useState(false);
   const [loading, setLoading] = useState(true);
   const [timeLeft, setTimeLeft] = useState(EXAM_DURATION_SECONDS);
+  const [examResults, setExamResults] = useState<ExamResult | null>(null);
 
   useEffect(() => {
     const fetchQuizData = async () => {
-      const [fragenRes, antwortenRes, artenRes] = await Promise.all([
-        fetch("http://localhost:3000/Quizfragen"),
-        fetch("http://localhost:3000/Antwortmoeglichkeiten"),
-        fetch("http://localhost:3000/Fragenart"),
-      ]);
+      try {
+        const [fragenRes, antwortenRes, artenRes] = await Promise.all([
+          fetch("http://localhost:3000/Quizfragen"),
+          fetch("http://localhost:3000/Antwortmoeglichkeiten"),
+          fetch("http://localhost:3000/Fragenart"),
+        ]);
 
-      const [fragen, antworten, arten] = await Promise.all([
-        fragenRes.json(),
-        antwortenRes.json(),
-        artenRes.json(),
-      ]);
+        const [fragen, antworten, arten] = await Promise.all([
+          fragenRes.json(),
+          antwortenRes.json(),
+          artenRes.json(),
+        ]);
 
-      const mapped: FrageMitAntworten[] = fragen.map((f: Quizfrage) => {
-        const art = arten.find((a: Fragenart) => a.FragenartID === f.ArtID);
-        const relatedAnswers = antworten.filter(
-          (a: Antwortmoeglichkeit) => a.QuizFrageID === f.FrageID
-        );
+        const mapped: FrageMitAntworten[] = fragen.map((f: Quizfrage) => {
+          const art = arten.find((a: Fragenart) => a.FragenartID === f.ArtID);
+          const relatedAnswers = antworten.filter(
+            (a: Antwortmoeglichkeit) => a.QuizFrageID === f.FrageID
+          );
 
-        return {
-          id: f.FrageID,
-          text: f.FragenText,
-          type: art?.Art === "Multiplichoise" ? "multiple" : "single",
-          answers: relatedAnswers.map((r: Antwortmoeglichkeit) => ({
-            id: r.AntwortID,
-            text: r.AntwortenText,
-            isCorrect: r.IstRichtig === true,
-          })),
-        };
-      });
+          return {
+            id: f.FrageID,
+            text: f.FragenText,
+            type: art?.Art === "Multiplichoise" ? "multiple" : "single",
+            answers: relatedAnswers.map((r: Antwortmoeglichkeit) => ({
+              id: r.AntwortID,
+              text: r.AntwortenText,
+            })),
+          };
+        });
 
-      const random5 = mapped.sort(() => 0.5 - Math.random()).slice(0, 15);
-      setQuestions(random5);
-      setLoading(false);
+        const random15 = mapped.sort(() => 0.5 - Math.random()).slice(0, 15);
+        setQuestions(random15);
+      } catch (error) {
+        console.error("Fehler beim Laden der Quizdaten:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchQuizData();
@@ -139,47 +149,57 @@ const ExamQuiz: React.FC = () => {
     });
   };
 
-  const handleSubmitQuiz = () => {
-    setExamFinished(true);
-  };
+  const handleSubmitQuiz = async () => {
+    setLoading(true);
 
-  const calculateResults = () => {
-    let correctCount = 0;
+    try {
+      const response = await fetch("http://localhost:3000/submit-exam", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userAnswers: userAnswers,
+        }),
+      });
 
-    questions.forEach((q) => {
-      const correctIds = q.answers
-        .filter((a) => a.isCorrect)
-        .map((a) => a.id)
-        .sort();
-      const userIds = (userAnswers[q.id] || []).sort();
-      const isCorrect =
-        correctIds.length === userIds.length &&
-        correctIds.every((val, index) => val === userIds[index]);
-
-      if (isCorrect) {
-        correctCount++;
+      if (!response.ok) {
+        throw new Error("Fehler bei der Übermittlung der Prüfung.");
       }
-    });
 
-    const totalQuestions = questions.length;
-    const percentage = (correctCount / totalQuestions) * 100;
-    const hasPassed = percentage > 50;
-
-    return { correctCount, totalQuestions, percentage, hasPassed };
+      const results: ExamResult = await response.json();
+      setExamResults(results);
+      setExamFinished(true);
+    } catch (error) {
+      console.error("Prüfungsfehler:", error);
+      alert(
+        "Es ist ein Fehler bei der Übermittlung aufgetreten. Bitte versuchen Sie es erneut."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (loading) {
     return (
       <div className="practice-loadingwrapper">
         <CircularProgress className="loading-spinner" />
-        <span>Prüfungsquiz wird geladen...</span>
+        <span>
+          {examFinished
+            ? "Ergebnisse werden berechnet..."
+            : "Prüfungsquiz wird geladen..."}
+        </span>
       </div>
     );
   }
 
   if (examFinished) {
-    const { correctCount, totalQuestions, percentage, hasPassed } =
-      calculateResults();
+    if (!examResults) {
+      return (
+        <div className="practice-loadingwrapper">
+          Fehler beim Laden der Ergebnisse.
+        </div>
+      );
+    }
+    const { correctCount, totalQuestions, percentage, hasPassed } = examResults;
     const resultColor = hasPassed ? "#81c784" : "#e57373";
 
     return (
@@ -204,6 +224,7 @@ const ExamQuiz: React.FC = () => {
             <Typography variant="h5" className="question-text" sx={{ mt: 3 }}>
               Korrekte Antworten:
             </Typography>
+
             <Typography
               variant="h3"
               sx={{ color: resultColor, fontWeight: 700 }}
@@ -214,6 +235,7 @@ const ExamQuiz: React.FC = () => {
             <Typography variant="h5" className="question-text" sx={{ mt: 3 }}>
               Erreichte Punktzahl:
             </Typography>
+
             <Typography variant="h3" sx={{ color: "#4dd0e1", fontWeight: 700 }}>
               {percentage.toFixed(1)} %
             </Typography>
@@ -299,24 +321,19 @@ const ExamQuiz: React.FC = () => {
                           <Radio
                             checked={isSelected}
                             onChange={() => handleSelect(q.id, a.id, q.type)}
-                            sx={{
-                              color: isSelected
-                                ? "#4dd0e1"
-                                : "rgba(224, 247, 250, 0.7)",
-                            }}
                           />
                         ) : (
                           <Checkbox
                             checked={isSelected}
                             onChange={() => handleSelect(q.id, a.id, q.type)}
-                            sx={{
-                              color: isSelected
-                                ? "#4dd0e1"
-                                : "rgba(224, 247, 250, 0.7)",
-                            }}
                           />
                         )
                       }
+                      sx={{
+                        color: isSelected
+                          ? "#4dd0e1"
+                          : "rgba(224, 247, 250, 0.7)",
+                      }}
                       label={
                         <span
                           style={{ color: isSelected ? "#4dd0e1" : "#e0f7fa" }}
