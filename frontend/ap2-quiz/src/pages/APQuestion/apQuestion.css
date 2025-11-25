@@ -1,14 +1,95 @@
 .ap-questions-container {
-  animation: fadeIn 0.6s ease-in-out;
+  text-align: center;
+  padding: 32px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(
+    circle at top left,
+    #1a0033 0%,
+    #0d001a 50%,
+    #05000f 100%
+  );
+  color: #e0f7fa;
+  font-family: "Orbitron", sans-serif;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+.ap-title {
+  font-weight: 700 !important;
+  background: linear-gradient(90deg, #4dd0e1, #81d4fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 32px !important;
+  text-shadow: 0 0 10px rgba(77, 208, 225, 0.5);
+  letter-spacing: 2px;
+}
+
+.ap-description {
+  font-weight: 500 !important;
+  color: #81d4fa;
+  margin-bottom: 40px !important;
+  text-align: center;
+  width: 90%;
+  max-width: 50%;
+  background-color: rgba(33, 33, 50, 0.7);
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(77, 208, 225, 0.2);
+  border: 1px solid rgba(77, 208, 225, 0.3);
+}
+
+@media (min-width: 600px) {
+  .ap-description {
+    max-width: 70%;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+}
+@media (min-width: 960px) {
+  .ap-description {
+    max-width: 50%;
   }
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.ap-quiz-btn {
+  border-radius: 6px !important;
+  padding: 12px 25px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background-color: transparent !important;
+}
+
+.ap-primary-btn {
+  background: linear-gradient(90deg, #4dd0e1, #81d4fa) !important;
+  color: #0d001a !important;
+  box-shadow: 0 0 10px rgba(77, 208, 225, 0.5);
+}
+
+.ap-primary-btn:hover {
+  background: linear-gradient(90deg, #81d4fa, #4dd0e1) !important;
+  box-shadow: 0 0 20px rgba(77, 208, 225, 0.8), 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+  transform: translateY(-2px) !important;
+  color: #0d001a !important;
+}
+
+.ap-back-btn {
+  margin-top: 3rem !important;
+  border: solid 1px #ff4b4b !important;
+  color: #ff4b4b !important;
+  box-shadow: 0 0 8px rgba(0, 188, 212, 0.4);
+}
+
+.ap-back-btn:hover {
+  background: linear-gradient(90deg, #fa2828ff, #ce4141ff) !important;
+  box-shadow: 0 0 15px rgba(0, 188, 212, 0.7), 0 4px 10px rgba(0, 0, 0, 0.3) !important;
+  transform: translateY(-2px);
+  color: #e0f7fa !important;
 }

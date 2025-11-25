@@ -3,34 +3,21 @@ import "./flashcards.css";
 import { Button, CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
 import FlashcardModal from "./FlashcardModal";
+import type {
+  Subtopic,
+  Flashcard,
+  RawKategorie,
+  Topic,
+} from "../../Model/Flaschcard/FlaschcardInterface";
+import {
+  fetchKategorien,
+  fetchFlashcardsBySubtopicId,
+  fetchUnterkategorienByKategorieId,
+} from "../../Service/Flaschcard/flaschcardService";
 
-interface Flashcard {
-  id: string;
-  frage: string;
-  antwort: string;
-}
-
-interface Subtopic {
-  title: string;
-  path: string;
-  subkategorieId: string;
-}
-
-interface Topic {
-  id: string;
-  title: string;
-  subtopics: Subtopic[];
-}
-
-interface RawKategorie {
-  ID: string;
-  KategorieName: string;
-}
-
-interface RawUnterkategorie {
-  ID: string;
-  KategorieID: string;
-  Titel: string;
+interface LazyTopic extends Topic {
+  loadedSubtopics: Subtopic[] | null;
+  isLoadingSubs: boolean;
 }
 
 const slugify = (text: string) => {
@@ -43,7 +30,7 @@ const slugify = (text: string) => {
 };
 
 const Flashcards: React.FC = () => {
-  const [lernfelder, setLernfelder] = useState<Topic[]>([]);
+  const [learningFields, setLearningFields] = useState<LazyTopic[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [openTopic, setOpenTopic] = useState<string | null>(null);
@@ -52,67 +39,86 @@ const Flashcards: React.FC = () => {
   const [currentSubtopicTitle, setCurrentSubtopicTitle] = useState("");
 
   useEffect(() => {
-    const fetchAllData = async () => {
+    const fetchInitialData = async () => {
       try {
         setIsLoading(true);
         setError(null);
-        const katResponse = await fetch("http://localhost:3000/Kategorie");
-        const subKatResponse = await fetch(
-          "http://localhost:3000/Unterkategorie"
-        );
 
-        if (!katResponse.ok || !subKatResponse.ok) {
-          throw new Error("Fehler beim Abruf der Daten.");
-        }
+        const rawCategory: RawKategorie[] = await fetchKategorien();
 
-        const rawKategorien: RawKategorie[] = await katResponse.json();
-        const rawUnterkategorien: RawUnterkategorie[] =
-          await subKatResponse.json();
+        const mappedLearningFields: LazyTopic[] = rawCategory.map((cat) => ({
+          id: cat.ID,
+          title: cat.KategorieName,
+          loadedSubtopics: null,
+          isLoadingSubs: false,
+        }));
 
-        const gemappteLernfelder: Topic[] = rawKategorien.map((kat) => {
-          const subtopics: Subtopic[] = rawUnterkategorien
-            .filter((sub) => sub.KategorieID === kat.ID)
-            .map((sub) => ({
-              title: sub.Titel,
-              path: slugify(sub.Titel),
-              subkategorieId: sub.ID,
-            }));
-
-          return {
-            id: kat.ID,
-            title: kat.KategorieName,
-            subtopics: subtopics,
-          } as Topic;
-        });
-
-        setLernfelder(gemappteLernfelder);
+        setLearningFields(mappedLearningFields);
       } catch (err) {
         console.error("Fehler beim Datenabruf:", err);
         setError("Die Lernfelder konnten nicht geladen werden.");
-        setLernfelder([]);
       } finally {
         setIsLoading(false);
       }
     };
-    fetchAllData();
+    fetchInitialData();
   }, []);
+
+  const fetchSubtopicsForTopic = async (topicId: string) => {
+    setLearningFields((prevLearningFields) =>
+      prevLearningFields.map((t) =>
+        t.id === topicId ? { ...t, isLoadingSubs: true } : t
+      )
+    );
+    try {
+      const rawSubs = await fetchUnterkategorienByKategorieId(topicId);
+
+      const subtopics: Subtopic[] = rawSubs.map((sub) => ({
+        title: sub.Titel,
+        path: slugify(sub.Titel),
+        subkategorieId: sub.ID,
+      }));
+
+      setLearningFields((prevLearningFields) =>
+        prevLearningFields.map((t) =>
+          t.id === topicId
+            ? { ...t, loadedSubtopics: subtopics, isLoadingSubs: false }
+            : t
+        )
+      );
+    } catch (err) {
+      console.error("Fehler beim Laden der Unterkategorien:", err);
+      setError(
+        `Fehler beim Laden der Unterkategorien für Lernfeld ${topicId}.`
+      );
+      setLearningFields((prevLearningFields) =>
+        prevLearningFields.map((t) =>
+          t.id === topicId ? { ...t, isLoadingSubs: false } : t
+        )
+      );
+    }
+  };
+
+  const handleToggle = (topicId: string) => {
+    const isOpening = openTopic !== topicId;
+    setOpenTopic(isOpening ? topicId : null);
+
+    if (isOpening) {
+      const topic = learningFields.find((t) => t.id === topicId);
+      if (topic && topic.loadedSubtopics === null) {
+        fetchSubtopicsForTopic(topicId);
+      }
+    }
+  };
 
   const handleSubtopicClick = async (
     subtopicId: string,
     subtopicTitle: string
   ) => {
     setCurrentSubtopicTitle(subtopicTitle);
-
+    setError(null);
     try {
-      const response = await fetch(
-        `http://localhost:3000/flashcards/${subtopicId}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Flashcards konnten nicht geladen werden.");
-      }
-
-      const cards: Flashcard[] = await response.json();
+      const cards: Flashcard[] = await fetchFlashcardsBySubtopicId(subtopicId);
 
       if (cards.length === 0) {
         setError(`Keine Lernkarten für ${subtopicTitle} gefunden.`);
@@ -132,26 +138,26 @@ const Flashcards: React.FC = () => {
     setCurrentFlashcards([]);
   };
 
-  const handleToggle = (topicId: string) => {
-    setOpenTopic(openTopic === topicId ? null : topicId);
-  };
-
   if (isLoading) {
     return (
       <div className="flashcards-loadingwrapper">
-        <h1>Lernkarten</h1>
+        <h1 className="flashcards-main-heading">Lernkarten</h1>
         <CircularProgress className="loading-spinner" />
         <span>Lernkarten werden geladen …</span>
       </div>
     );
   }
 
-  if (error) {
+  if (error && !isModalOpen) {
     return (
       <div className="flashcards-loadingwrapper">
-        <h1>Lernkarten</h1>
-        <p style={{ color: "red" }}>{error}</p>
-        <Button variant="outlined" onClick={() => window.location.reload()}>
+        <h1 className="flashcards-main-heading">Lernkarten</h1>
+        <p className="error-message">{error}</p>
+        <Button
+          variant="outlined"
+          onClick={() => window.location.reload()}
+          className="retry-button"
+        >
           Erneut versuchen
         </Button>
       </div>
@@ -161,11 +167,10 @@ const Flashcards: React.FC = () => {
   return (
     <>
       <div className="flashcards-wrapper">
-        <h1>Lernkarten</h1>
         <div className="grid-wrapper">
-          <h2>Lernfelder</h2>
+          <h2 className="topic-grid-heading">Lernfelder</h2>
           <div className="category-grid">
-            {lernfelder.map((topic) => (
+            {learningFields.map((topic) => (
               <div
                 key={topic.id}
                 className={`topic-container ${
@@ -181,22 +186,35 @@ const Flashcards: React.FC = () => {
                     {openTopic === topic.id ? "▲" : "▼"}
                   </span>
                 </button>
+
                 {openTopic === topic.id && (
                   <div className="subtopic-menu">
-                    {topic.subtopics.map((subtopic) => (
-                      <button
-                        key={subtopic.path}
-                        onClick={() =>
-                          handleSubtopicClick(
-                            subtopic.subkategorieId,
-                            subtopic.title
-                          )
-                        }
-                        className="subtopic-link"
-                      >
-                        {subtopic.title}
-                      </button>
-                    ))}
+                    {topic.isLoadingSubs ? (
+                      <div className="subtopic-loading-box">
+                        <CircularProgress size={20} />
+                        <p className="subtopic-loading-text">Laden...</p>
+                      </div>
+                    ) : topic.loadedSubtopics &&
+                      topic.loadedSubtopics.length > 0 ? (
+                      topic.loadedSubtopics.map((subtopic) => (
+                        <button
+                          key={subtopic.path}
+                          onClick={() =>
+                            handleSubtopicClick(
+                              subtopic.subkategorieId,
+                              subtopic.title
+                            )
+                          }
+                          className="subtopic-link"
+                        >
+                          {subtopic.title}
+                        </button>
+                      ))
+                    ) : (
+                      <p className="no-subtopics-message">
+                        Keine Unterkategorien verfügbar.
+                      </p>
+                    )}
                   </div>
                 )}
               </div>
@@ -207,18 +225,7 @@ const Flashcards: React.FC = () => {
           variant="outlined"
           component={Link}
           to="/"
-          sx={{
-            borderColor: "#ff4b4b",
-            color: "#ff4b4b",
-            borderRadius: "8px",
-            padding: "8px 20px",
-            fontWeight: 500,
-            "&:hover": {
-              background: "linear-gradient(90deg, #fa2828ff, #ce4141ff)",
-              color: "#fff",
-            },
-            transition: "all 0.3s ease",
-          }}
+          className="back-to-home-btn"
         >
           zurück zur Startseite
         </Button>

@@ -15,6 +15,33 @@
   color: #e0f7fa;
 }
 
+.wrapper h1,
+.main-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  background: linear-gradient(90deg, #4dd0e1, #81d4fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(77, 208, 225, 0.5);
+  letter-spacing: 2px;
+}
+
+.home-description-box {
+  font-weight: 500 !important;
+  color: #81d4fa;
+  margin-top: 24px !important;
+  text-align: center;
+  width: 90%;
+  max-width: 50%;
+  background-color: rgba(33, 33, 50, 0.7);
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(77, 208, 225, 0.2);
+  border: 1px solid rgba(77, 208, 225, 0.3);
+}
+
 .btn-wrapper {
   display: flex;
   justify-content: center;
@@ -45,14 +72,47 @@
   box-shadow: 0 0 20px rgba(77, 208, 225, 0.8), 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
+.home-nav-btn {
+  background: transparent !important;
+  color: #ff4b4b !important;
+  border-width: 1px;
+  border-style: solid;
+  font-weight: 600 !important;
+  padding: 10px 40px !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+.flashcards-btn,
+.quiz-select-btn {
+  border-color: #ff4b4b !important;
+}
+
+.home-nav-btn:hover {
+  background: linear-gradient(90deg, #fa2828ff, #ce4141ff) !important;
+  color: #fff !important;
+  box-shadow: 0 0 15px rgba(0, 188, 212, 0.7), 0 4px 10px rgba(0, 0, 0, 0.3) !important;
+  transform: translateY(-2px) !important;
+}
+
 @media (max-width: 600px) {
   .btn-wrapper {
     flex-direction: column;
     gap: 1.5rem;
   }
   .btn-wrapper button,
-  .btn-wrapper Button {
+  .btn-wrapper Button,
+  .home-nav-btn {
     width: 80%;
     margin: 0 auto;
+  }
+  .home-description-box {
+    max-width: 70%;
+  }
+}
+
+@media (min-width: 960px) {
+  .home-description-box {
+    max-width: 50%;
   }
 }

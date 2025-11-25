@@ -16,7 +16,18 @@
   color: #e0f7fa;
 }
 
-h2 {
+.flashcards-wrapper h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(90deg, #4dd0e1, #81d4fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(77, 208, 225, 0.5);
+  letter-spacing: 2px;
+}
+
+.topic-grid-heading {
   margin-bottom: 2.5rem;
   font-size: 2.5rem;
   font-weight: 700;
@@ -32,15 +43,15 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 95%;
-  max-width: 1200px;
+  width: 85% !important;
+  max-width: none !important;
 }
 
 .category-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
-  margin-bottom: 2rem;
+  width: 100%;
 }
 
 .topic-container {
@@ -51,6 +62,9 @@ h2 {
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: auto;
 }
 
 .topic-container:hover {
@@ -60,7 +74,7 @@ h2 {
 }
 
 .topic-container.active {
-  grid-column: 1 / span 4;
+  grid-column: 1 / -1;
   background: rgba(33, 33, 50, 0.95);
   border: 1px solid #4dd0e1;
   transform: scale(1.01);
@@ -83,11 +97,20 @@ h2 {
   background: transparent;
   color: #e0f7fa;
   transition: background 0.3s, color 0.3s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .topic-header:hover {
   background: rgba(77, 208, 225, 0.1);
   color: #81d4fa;
+}
+
+.expand-icon {
+  font-weight: 700;
+  color: #4dd0e1;
+  flex-shrink: 0;
 }
 
 .subtopic-menu {
@@ -97,6 +120,7 @@ h2 {
   background: rgba(15, 0, 30, 0.9);
   gap: 0.75rem;
   border-top: 1px dashed rgba(77, 208, 225, 0.2);
+  width: 100%;
 }
 
 .subtopic-link {
@@ -109,6 +133,9 @@ h2 {
   font-size: 0.9rem;
   transition: all 0.3s ease;
   font-weight: 400;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .subtopic-link:hover {
@@ -116,6 +143,33 @@ h2 {
   color: #0d001a;
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 4px 15px rgba(77, 208, 225, 0.5);
+}
+
+.subtopic-loading-box {
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subtopic-loading-box .loading-spinner-small {
+  color: #4dd0e1 !important;
+  margin-bottom: 5px;
+}
+
+.subtopic-loading-text {
+  font-size: 14px;
+  color: #81d4fa;
+}
+
+.no-subtopics-message {
+  padding: 10px;
+  color: #888;
+  text-align: center;
+  font-size: 14px;
+  width: 100%;
 }
 
 .flashcards-loadingwrapper {
@@ -137,4 +191,78 @@ h2 {
   color: #81d4fa;
   font-family: "Orbitron", sans-serif;
   text-shadow: 0 0 5px #4dd0e1;
+}
+
+.flashcards-loadingwrapper .loading-spinner {
+  color: #4dd0e1 !important;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  color: #ff4b4b;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.retry-button {
+  border-color: #4dd0e1 !important;
+  color: #4dd0e1 !important;
+  transition: all 0.3s ease;
+}
+
+.retry-button:hover {
+  background: rgba(77, 208, 225, 0.1) !important;
+}
+
+.back-to-home-btn {
+  border-color: #ff4b4b !important;
+  color: #ff4b4b !important;
+  border-radius: 8px !important;
+  padding: 8px 20px !important;
+  transition: all 0.3s ease;
+  margin-top: 2rem !important;
+  font-weight: 600 !important;
+}
+
+.back-to-home-btn:hover {
+  background: linear-gradient(90deg, #fa2828ff, #ce4141ff) !important;
+  color: #fff !important;
+  box-shadow: 0 0 15px rgba(0, 188, 212, 0.7), 0 4px 10px rgba(0, 0, 0, 0.3) !important;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1024px) {
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .topic-container.active {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .flashcards-main-heading,
+  .topic-grid-heading {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .flashcards-main-heading,
+  .topic-grid-heading {
+    font-size: 1.5rem;
+  }
+
+  .topic-header {
+    padding: 15px 20px;
+    font-size: 0.9rem;
+  }
 }

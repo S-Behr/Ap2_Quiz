@@ -11,94 +11,42 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import "./quiz.css";
-
-interface FrageMitAntworten {
-  id: number;
-  text: string;
-  type: "single" | "multiple";
-  answers: {
-    id: number;
-    text: string;
-  }[];
-}
-
-interface Fragenart {
-  FragenartID: number;
-  Art: "Singlechoise" | "Multiplechoise";
-}
-
-interface Antwortmoeglichkeit {
-  AntwortID: number;
-  QuizFrageID: number;
-  AntwortenText: string;
-  IstRichtig?: boolean;
-}
-
-interface Quizfrage {
-  FrageID: number;
-  ArtID: number;
-  FragenText: string;
-  Bild?: string | null;
-}
+import { fetchQuizQuestions } from "../../Service/ApQuestion/quizService";
+import type { QuestionsWithAnswers } from "../../Model/ApQuestion/apQuestionInterface";
+import { checkAnswer } from "../../Service/ApQuestion/quizService";
 
 const PracticeQuiz: React.FC = () => {
-  const [questions, setQuestions] = useState<FrageMitAntworten[]>([]);
+  const [questions, setQuestions] = useState<QuestionsWithAnswers[]>([]);
   const [current, setCurrent] = useState(0);
-  const [selected, setSelected] = useState<number[]>([]);
+  const [selectedAnswer, setSelectedAnswer] = useState<number[]>([]);
   const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(true);
   const [correctAnswerIds, setCorrectAnswerIds] = useState<number[]>([]);
 
   useEffect(() => {
-    const fetchQuizData = async () => {
+    const loadQuiz = async () => {
       try {
-        const [fragenRes, antwortenRes, artenRes] = await Promise.all([
-          fetch("http://localhost:3000/Quizfragen"),
-          fetch("http://localhost:3000/Antwortmoeglichkeiten"),
-          fetch("http://localhost:3000/Fragenart"),
-        ]);
-
-        const [fragen, antworten, arten] = await Promise.all([
-          fragenRes.json(),
-          antwortenRes.json(),
-          artenRes.json(),
-        ]);
-
-        const mapped: FrageMitAntworten[] = fragen.map((f: Quizfrage) => {
-          const art = arten.find((a: Fragenart) => a.FragenartID === f.ArtID);
-          const relatedAnswers = antworten.filter(
-            (a: Antwortmoeglichkeit) => a.QuizFrageID === f.FrageID
-          );
-
-          return {
-            id: f.FrageID,
-            text: f.FragenText,
-            type: art?.Art === "Multiplichoise" ? "multiple" : "single",
-            answers: relatedAnswers.map((r: Antwortmoeglichkeit) => ({
-              id: r.AntwortID,
-              text: r.AntwortenText,
-            })),
-          };
-        });
-
-        const random5 = mapped.sort(() => 0.5 - Math.random()).slice(0, 5);
-        setQuestions(random5);
+        const loadedQuestions = await fetchQuizQuestions(5);
+        setQuestions(loadedQuestions);
       } catch (error) {
         console.error("Fehler beim Laden der Quizdaten:", error);
+        alert(
+          "Es ist ein Fehler beim der Fragen aufgetreten. Bitte versuchen Sie es erneut."
+        );
       } finally {
         setLoading(false);
       }
     };
 
-    fetchQuizData();
+    loadQuiz();
   }, []);
 
   const handleSelect = (answerId: number) => {
-    const q = questions[current];
-    if (q.type === "single") {
-      setSelected([answerId]);
+    const question = questions[current];
+    if (question.type === "single") {
+      setSelectedAnswer([answerId]);
     } else {
-      setSelected((prev) =>
+      setSelectedAnswer((prev) =>
         prev.includes(answerId)
           ? prev.filter((id) => id !== answerId)
           : [...prev, answerId]
@@ -107,31 +55,26 @@ const PracticeQuiz: React.FC = () => {
   };
 
   const handleCheck = async () => {
-    const questionId = questions[current].id;
-
     try {
-      const response = await fetch("http://localhost:3000/check-answer", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          questionId: questionId,
-          selectedAnswerIds: selected,
-        }),
-      });
-
-      const result = await response.json();
-
-      setCorrectAnswerIds(result.correctIds || []);
+      const correctIds = await checkAnswer(
+        questions[current].id,
+        selectedAnswer
+      );
+      setCorrectAnswerIds(correctIds);
       setShowResult(true);
     } catch (error) {
       console.error("Fehler bei der Überprüfung der Antwort:", error);
-      setShowResult(true);
+      alert(
+        "Es ist ein Fehler bei der Überprüfung der Antwort aufgetreten. Bitte versuchen Sie es erneut."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
   const nextQuestion = () => {
     setShowResult(false);
-    setSelected([]);
+    setSelectedAnswer([]);
     setCorrectAnswerIds([]);
     setCurrent((prev) => prev + 1);
   };
@@ -145,8 +88,8 @@ const PracticeQuiz: React.FC = () => {
     );
   }
 
-  const q = questions[current];
-  if (!q) {
+  const question = questions[current];
+  if (!question) {
     return (
       <div className="practice-loadingwrapper">Keine Fragen gefunden.</div>
     );
@@ -164,39 +107,40 @@ const PracticeQuiz: React.FC = () => {
               </Typography>
 
               <Typography variant="body1" className="question-text">
-                {q.text}
+                {question.text}
               </Typography>
 
-              {q.answers.map((a) => {
-                const isCorrect = correctAnswerIds.includes(a.id) && showResult;
+              {question.answers.map((answer) => {
+                const isCorrect =
+                  correctAnswerIds.includes(answer.id) && showResult;
                 const isWrong =
-                  selected.includes(a.id) &&
+                  selectedAnswer.includes(answer.id) &&
                   showResult &&
-                  !correctAnswerIds.includes(a.id);
+                  !correctAnswerIds.includes(answer.id);
                 return (
                   <div
-                    key={a.id}
+                    key={answer.id}
                     className={`answer-option ${
                       isCorrect ? "correct" : isWrong ? "wrong" : ""
                     }`}
                   >
                     <FormControlLabel
                       control={
-                        q.type === "single" ? (
+                        question.type === "single" ? (
                           <Radio
-                            checked={selected.includes(a.id)}
-                            onChange={() => handleSelect(a.id)}
+                            checked={selectedAnswer.includes(answer.id)}
+                            onChange={() => handleSelect(answer.id)}
                             disabled={showResult}
                           />
                         ) : (
                           <Checkbox
-                            checked={selected.includes(a.id)}
-                            onChange={() => handleSelect(a.id)}
+                            checked={selectedAnswer.includes(answer.id)}
+                            onChange={() => handleSelect(answer.id)}
                             disabled={showResult}
                           />
                         )
                       }
-                      label={<span>{a.text}</span>}
+                      label={<span>{answer.text}</span>}
                     />
                   </div>
                 );
@@ -205,31 +149,30 @@ const PracticeQuiz: React.FC = () => {
               {!showResult ? (
                 <Button
                   variant="contained"
-                  className="quiz-btn primary"
+                  className="quiz-btn primary check-button"
                   onClick={handleCheck}
-                  disabled={selected.length === 0}
+                  disabled={selectedAnswer.length === 0}
                 >
                   Prüfen
                 </Button>
               ) : current < questions.length - 1 ? (
                 <Button
                   variant="outlined"
-                  className="quiz-btn secondary"
+                  className="quiz-btn secondary next-question-button"
                   onClick={nextQuestion}
                 >
                   Nächste Frage
                 </Button>
               ) : (
-                <div className="btn-wrapper-endPracticequiz">
+                <div className="btn-wrapper-end-Practicequiz">
                   <Typography className="quiz-finished">
                     Quiz beendet!
                   </Typography>
 
                   <Button
                     variant="contained"
-                    className="quiz-btn primary"
+                    className="quiz-btn primary repeat-button"
                     onClick={() => window.location.reload()}
-                    sx={{ mb: 3 }}
                   >
                     Übungsquiz wiederholen
                   </Button>
@@ -243,21 +186,9 @@ const PracticeQuiz: React.FC = () => {
           variant="outlined"
           component={Link}
           to="/ApQuestions"
-          sx={{
-            borderColor: "#ff4b4b",
-            color: "#ff4b4b",
-            borderRadius: "8px",
-            padding: "8px 20px",
-            marginTop: "20px",
-            fontWeight: 500,
-            "&:hover": {
-              backgroundColor: "#ff4b4b",
-              color: "#fff",
-            },
-            transition: "all 0.3s ease",
-          }}
+          className="quiz-btn-back"
         >
-          zurück
+          zurück zur Quizübersicht
         </Button>
       </div>
     </>
