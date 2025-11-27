@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import "./quiz.css";
 import { fetchQuizQuestions } from "../../Service/ApQuestion/quizService";
 import type { QuestionsWithAnswers } from "../../Model/ApQuestion/apQuestionInterface";
-import { checkAnswer } from "../../Service/ApQuestion/quizService";
+import { fetchCorrectAnswers } from "../../Service/ApQuestion/quizService";
 
 const PracticeQuiz: React.FC = () => {
   const [questions, setQuestions] = useState<QuestionsWithAnswers[]>([]);
@@ -56,10 +56,7 @@ const PracticeQuiz: React.FC = () => {
 
   const handleCheck = async () => {
     try {
-      const correctIds = await checkAnswer(
-        questions[current].id,
-        selectedAnswer
-      );
+      const correctIds = await fetchCorrectAnswers(questions[current].id);
       setCorrectAnswerIds(correctIds);
       setShowResult(true);
     } catch (error) {

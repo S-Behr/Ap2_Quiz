@@ -6,13 +6,13 @@ import FlashcardModal from "./FlashcardModal";
 import type {
   Subtopic,
   Flashcard,
-  RawKategorie,
+  RawCategory,
   Topic,
 } from "../../Model/Flaschcard/FlaschcardInterface";
 import {
-  fetchKategorien,
+  fetchCategory,
   fetchFlashcardsBySubtopicId,
-  fetchUnterkategorienByKategorieId,
+  fetchSubCategoryByCategoryId,
 } from "../../Service/Flaschcard/flaschcardService";
 
 interface LazyTopic extends Topic {
@@ -44,7 +44,7 @@ const Flashcards: React.FC = () => {
         setIsLoading(true);
         setError(null);
 
-        const rawCategory: RawKategorie[] = await fetchKategorien();
+        const rawCategory: RawCategory[] = await fetchCategory();
 
         const mappedLearningFields: LazyTopic[] = rawCategory.map((cat) => ({
           id: cat.ID,
@@ -71,7 +71,7 @@ const Flashcards: React.FC = () => {
       )
     );
     try {
-      const rawSubs = await fetchUnterkategorienByKategorieId(topicId);
+      const rawSubs = await fetchSubCategoryByCategoryId(topicId);
 
       const subtopics: Subtopic[] = rawSubs.map((sub) => ({
         title: sub.Titel,

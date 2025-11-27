@@ -1,0 +1,127 @@
+:root {
+  --eq-bg-dark: #263238;
+  --eq-accent-cyan: #4dd0e1;
+  --eq-accent-cyan-hover: #00bcd4;
+  --eq-status-correct: #81c784;
+  --eq-status-incorrect: #e57373;
+  --eq-text-light: #e0f7fa;
+  --eq-bg-light-overlay: rgba(255, 255, 255, 0.05);
+  --eq-bg-status-correct: rgba(129, 199, 132, 0.2);
+  --eq-bg-status-incorrect: rgba(229, 115, 115, 0.2);
+  --eq-bg-status-missed: rgba(77, 208, 225, 0.1);
+
+  --eq-font-header: "Orbitron", sans-serif;
+}
+
+.exam-dialog-title {
+  background-color: var(--eq-bg-dark) !important;
+  padding: 16px !important;
+}
+
+.exam-dialog-header-text {
+  font-weight: 600 !important;
+  color: var(--eq-accent-cyan) !important;
+  font-family: var(--eq-font-header) !important;
+}
+
+.exam-dialog-content {
+  background-color: var(--eq-bg-dark) !important;
+}
+
+.exam-dialog-footer {
+  background-color: var(--eq-bg-dark);
+  text-align: right;
+  padding: 16px;
+}
+
+.exam-question-item {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch !important;
+  margin-bottom: 32px !important;
+  padding: 16px !important;
+  border-radius: 8px !important;
+  background-color: var(--eq-bg-light-overlay) !important;
+  border: 2px solid transparent;
+}
+
+.exam-question-item.q-correct {
+  border-color: var(--eq-status-correct) !important;
+}
+
+.exam-question-item.q-incorrect {
+  border-color: var(--eq-status-incorrect) !important;
+}
+
+.exam-question-header {
+  font-weight: 700 !important;
+  margin-bottom: 8px !important;
+}
+
+.exam-question-header.q-correct {
+  color: var(--eq-status-correct) !important;
+}
+
+.exam-question-header.q-incorrect {
+  color: var(--eq-status-incorrect) !important;
+}
+
+.exam-selection-label {
+  font-weight: 600 !important;
+  margin-top: 16px !important;
+  color: var(--eq-accent-cyan) !important;
+}
+
+.exam-answer-item {
+  padding-left: 16px !important;
+  border-radius: 4px !important;
+  margin-bottom: 4px !important;
+  border-left: 4px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.exam-answer-item.status-correct {
+  background-color: var(--eq-bg-status-correct) !important;
+  border-left-color: var(--eq-status-correct) !important;
+}
+.exam-answer-item.status-correct .exam-answer-text {
+  color: var(--eq-status-correct) !important;
+}
+
+.exam-answer-item.status-incorrect {
+  background-color: var(--eq-bg-status-incorrect) !important;
+  border-left-color: var(--eq-status-incorrect) !important;
+}
+.exam-answer-item.status-incorrect .exam-answer-text {
+  color: var(--eq-status-incorrect) !important;
+}
+
+.exam-answer-item.status-missed {
+  background-color: var(--eq-bg-status-missed) !important;
+  border-left-color: var(--eq-status-correct) !important;
+}
+.exam-answer-item.status-missed .exam-answer-text {
+  color: var(--eq-status-correct) !important;
+}
+
+.exam-answer-item.status-neutral .exam-answer-text {
+  color: var(--eq-text-light) !important;
+}
+
+.exam-answer-text {
+  font-weight: 400;
+}
+
+.exam-answer-item.is-bold .exam-answer-text {
+  font-weight: 700;
+}
+
+.exam-close-btn {
+  background-color: var(--eq-accent-cyan) !important;
+  color: var(--eq-bg-dark) !important;
+  font-weight: 700 !important;
+}
+
+.exam-close-btn:hover {
+  background-color: var(--eq-accent-cyan-hover) !important;
+}

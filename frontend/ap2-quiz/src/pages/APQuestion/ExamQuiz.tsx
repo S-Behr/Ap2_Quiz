@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import {
   Card,
   CardContent,
@@ -24,7 +24,7 @@ import type {
   DisplayStatus,
 } from "../../Model/ApQuestion/apQuestionInterface";
 
-const examTimer = 1800; // 30 * 60 Sekunden
+const examTimer = 10; // 30 * 60 Sekunden
 
 const ExamQuiz: React.FC = () => {
   const [questions, setQuestions] = useState<QuestionsWithAnswers[]>([]);
@@ -53,20 +53,36 @@ const ExamQuiz: React.FC = () => {
     loadQuizData();
   }, []);
 
+  const handleSubmitQuiz = useCallback(async () => {
+    console.log("SUBMITTING DATA:", userAnswers);
+    setLoading(true);
+    try {
+      const results = await submitExam(userAnswers);
+      setExamResults(results);
+      setExamFinished(true);
+    } catch (error) {
+      console.error("Prüfungsfehler:", error);
+      setExamFinished(true);
+    } finally {
+      setLoading(false);
+    }
+  }, [userAnswers]);
+
   useEffect(() => {
     if (loading || examFinished) return;
+
     const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          handleSubmitQuiz();
-          return 0;
-        }
-        return prev - 1;
-      });
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
+
     return () => clearInterval(timer);
   }, [loading, examFinished]);
+
+  useEffect(() => {
+    if (timeLeft === 0 && !examFinished && !loading) {
+      handleSubmitQuiz();
+    }
+  }, [timeLeft, examFinished, loading, handleSubmitQuiz]);
 
   const formatTime = (totalSeconds: number) => {
     const minutes = Math.floor(totalSeconds / 60);
@@ -94,20 +110,6 @@ const ExamQuiz: React.FC = () => {
       }
       return updated;
     });
-  };
-
-  const handleSubmitQuiz = async () => {
-    setLoading(true);
-    try {
-      const results = await submitExam(userAnswers);
-      setExamResults(results);
-      setExamFinished(true);
-    } catch (error) {
-      console.error("Prüfungsfehler:", error);
-      alert("Fehler bei der Übermittlung. Bitte erneut versuchen.");
-    } finally {
-      setLoading(false);
-    }
   };
 
   const handleOpenModal = () => setOpenModal(true);
@@ -182,7 +184,36 @@ const ExamQuiz: React.FC = () => {
     if (!examResults) {
       return (
         <div className="practice-loadingwrapper">
-          Fehler beim Laden der Ergebnisse.
+          <div className="timeout">
+            <p>Die Zeit ist um!</p>
+            <p> Es wurden keine keine Frage beantwortet.</p>
+          </div>
+          <div className="timeout-btn">
+            <Button
+              variant="contained"
+              className="quiz-btn primary"
+              onClick={() => window.location.reload()}
+            >
+              Prüfung wiederholen
+            </Button>
+            <Button
+              variant="outlined"
+              component={Link}
+              to="/ApQuestions"
+              className=" quiz-btn primary"
+            >
+              Zurück zur Quizauswahl
+            </Button>
+          </div>
+          <Button
+            variant="contained"
+            size="large"
+            component={Link}
+            to="/"
+            className="back-to-home-btn "
+          >
+            zurück zur Startseite
+          </Button>
         </div>
       );
     }

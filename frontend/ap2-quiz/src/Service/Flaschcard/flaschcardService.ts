@@ -1,12 +1,12 @@
 import type {
-  RawKategorie,
-  RawUnterkategorie,
+  RawCategory,
+  RawSubCategory,
   Flashcard,
 } from "../../Model/Flaschcard/FlaschcardInterface";
 
 const API_URL = "http://localhost:3000";
 
-export const fetchKategorien = async (): Promise<RawKategorie[]> => {
+export const fetchCategory = async (): Promise<RawCategory[]> => {
   try {
     const response = await fetch(`${API_URL}/Kategorie`);
     if (!response.ok) throw new Error("Fehler beim Laden der Kategorien.");
@@ -17,9 +17,9 @@ export const fetchKategorien = async (): Promise<RawKategorie[]> => {
   }
 };
 
-export const fetchUnterkategorienByKategorieId = async (
+export const fetchSubCategoryByCategoryId = async (
   kategorieId: string
-): Promise<RawUnterkategorie[]> => {
+): Promise<RawSubCategory[]> => {
   try {
     const response = await fetch(
       `${API_URL}/Unterkategorie?KategorieID=${kategorieId}`

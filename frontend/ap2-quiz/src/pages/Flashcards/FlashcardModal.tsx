@@ -6,7 +6,7 @@ import {
   DialogContent,
   Typography,
 } from "@mui/material";
-import "./flashcards.css";
+import "./FlashcardModal.css";
 
 interface Flashcard {
   id: string;
@@ -94,14 +94,6 @@ const FlashcardModal: React.FC<FlashcardModalProps> = ({
     );
   };
 
-  const SPACE_BG = "rgba(33, 33, 50, 0.95)";
-  const NEON_CYAN_GRADIENT = "linear-gradient(90deg, #4dd0e1, #81d4fa)";
-  const NEON_CYAN_COLOR = "#4dd0e1";
-  const TEXT_COLOR = "#e0f7fa";
-  const PRIMARY_BUTTON_BG = "linear-gradient(90deg, #4dd0e1, #81d4fa)";
-  const SECONDARY_BUTTON_COLOR = "#4dd0e1";
-  const SECONDARY_BUTTON_HOVER_BG = "rgba(77, 208, 225, 0.1)";
-
   return (
     <Dialog
       open={true}
@@ -109,95 +101,36 @@ const FlashcardModal: React.FC<FlashcardModalProps> = ({
       fullWidth
       maxWidth="sm"
       PaperProps={{
-        sx: {
-          background: SPACE_BG,
-          borderRadius: "12px",
-          boxShadow:
-            "0 0 25px rgba(77, 208, 225, 0.4), 0 10px 40px rgba(0,0,0,0.4)",
-          color: TEXT_COLOR,
-          fontFamily: "'Orbitron', sans-serif",
-        },
+        className: "flashcard-dialog-paper",
       }}
     >
-      <DialogTitle
-        sx={{
-          textAlign: "center",
-          fontWeight: 700,
-          fontSize: "1.6rem",
-          background: NEON_CYAN_GRADIENT,
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          textShadow: "0 0 8px rgba(77, 208, 225, 0.4)",
-          borderBottom: `1px solid rgba(77, 208, 225, 0.2)`,
-          paddingBottom: 2,
-        }}
-      >
+      <DialogTitle className="flashcard-title">
         {title} ({currentIndex + 1} von {cards.length})
       </DialogTitle>
 
-      <DialogContent dividers sx={{ borderColor: "rgba(77, 208, 225, 0.2)" }}>
+      <DialogContent dividers className="flashcard-content">
         <div
-          style={{
-            minHeight: "250px",
-            padding: "25px",
-            borderRadius: "12px",
-            cursor: "pointer",
-            marginBottom: "20px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            background: showAnswer
-              ? "linear-gradient(135deg, #1f0040, #2a0050)"
-              : "rgba(15, 0, 30, 0.9)",
-            boxShadow: showAnswer
-              ? "0 0 20px rgba(129, 212, 250, 0.6)"
-              : "0 0 10px rgba(77, 208, 225, 0.3)",
-            transition: "all 0.3s ease",
-            color: TEXT_COLOR,
-            textAlign: "center",
-            fontWeight: showAnswer ? "600" : "400",
-            whiteSpace: "pre-line",
-            lineHeight: 1.7,
-            border: `1px solid ${
-              showAnswer ? NEON_CYAN_COLOR : "rgba(77, 208, 225, 0.2)"
-            }`,
-          }}
+          className={`flashcard-card-container ${
+            showAnswer ? "is-answer" : ""
+          }`}
           onClick={() => setShowAnswer(!showAnswer)}
         >
-          <Typography
-            variant="caption"
-            sx={{
-              mb: 1.5,
-              color: NEON_CYAN_COLOR,
-              fontWeight: 700,
-              textShadow: "0 0 5px rgba(77, 208, 225, 0.4)",
-            }}
-          >
+          <Typography variant="caption" className="flashcard-label">
             {showAnswer ? "Antwort" : "Frage"}
           </Typography>
-          <Typography variant="h6" component="p" sx={{ color: TEXT_COLOR }}>
+
+          <Typography variant="h6" component="p" className="flashcard-text">
             {showAnswer
               ? formatText(currentCard.antwort)
               : formatText(currentCard.frage)}
           </Typography>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div className="flashcard-actions">
           <Button
             onClick={handlePrev}
             variant="outlined"
-            sx={{
-              borderColor: SECONDARY_BUTTON_COLOR,
-              color: SECONDARY_BUTTON_COLOR,
-              textTransform: "uppercase",
-              padding: "8px 15px",
-              "&:hover": {
-                backgroundColor: SECONDARY_BUTTON_HOVER_BG,
-                color: TEXT_COLOR,
-                borderColor: NEON_CYAN_COLOR,
-              },
-            }}
+            className="flashcard-btn-outlined"
           >
             Zurück
           </Button>
@@ -205,19 +138,7 @@ const FlashcardModal: React.FC<FlashcardModalProps> = ({
           <Button
             onClick={() => setShowAnswer(!showAnswer)}
             variant="contained"
-            sx={{
-              background: PRIMARY_BUTTON_BG,
-              color: "#0d001a",
-              fontWeight: 600,
-              textTransform: "uppercase",
-              padding: "10px 20px",
-              boxShadow: "0 0 10px rgba(77, 208, 225, 0.5)",
-              "&:hover": {
-                background: "linear-gradient(90deg, #81d4fa, #4dd0e1)",
-                boxShadow: "0 0 20px rgba(77, 208, 225, 0.8)",
-                transform: "translateY(-1px)",
-              },
-            }}
+            className="flashcard-btn-primary"
           >
             {showAnswer ? "Frage anzeigen" : "Antwort anzeigen"}
           </Button>
@@ -225,37 +146,14 @@ const FlashcardModal: React.FC<FlashcardModalProps> = ({
           <Button
             onClick={handleNext}
             variant="outlined"
-            sx={{
-              borderColor: SECONDARY_BUTTON_COLOR,
-              color: SECONDARY_BUTTON_COLOR,
-              textTransform: "uppercase",
-              padding: "8px 15px",
-              "&:hover": {
-                backgroundColor: SECONDARY_BUTTON_HOVER_BG,
-                color: TEXT_COLOR,
-                borderColor: NEON_CYAN_COLOR,
-              },
-            }}
+            className="flashcard-btn-outlined"
           >
             Weiter
           </Button>
         </div>
       </DialogContent>
 
-      <Button
-        onClick={onClose}
-        sx={{
-          margin: "20px auto",
-          display: "block",
-          color: NEON_CYAN_COLOR,
-          fontWeight: 600,
-          textTransform: "uppercase",
-          "&:hover": {
-            backgroundColor: SECONDARY_BUTTON_HOVER_BG,
-            color: TEXT_COLOR,
-          },
-        }}
-      >
+      <Button onClick={onClose} className="flashcard-btn-close">
         Schließen
       </Button>
     </Dialog>

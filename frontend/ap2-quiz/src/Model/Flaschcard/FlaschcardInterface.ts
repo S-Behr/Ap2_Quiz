@@ -1,9 +1,9 @@
-export interface RawKategorie {
+export interface RawCategory {
   ID: string;
   KategorieName: string;
 }
 
-export interface RawUnterkategorie {
+export interface RawSubCategory {
   ID: string;
   KategorieID: string;
   Titel: string;

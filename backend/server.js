@@ -30,7 +30,7 @@ app.get("/Unterkategorie", async (req, res) => {
         WHERE KategorieID = ${kategorieId}
       `;
     } else {
-      query = sql.query`SELECT  * FROM Unterkategorie`;
+      query = sql.query`SELECT * FROM Unterkategorie`;
     }
 
     const result = await query;
@@ -104,57 +104,24 @@ app.get("/quiz-questions", async (req, res) => {
   }
 });
 
-app.post("/check-answer", async (req, res) => {
-  const { questionId } = req.body;
-  if (!questionId) {
-    return res.status(400).json({ error: "questionId fehlt in der Anfrage." });
-  }
+app.get("/correct-answers/:questionId", async (req, res) => {
+  const questionId = req.params.questionId;
 
   try {
     const result = await sql.query`
-    SELECT AntwortID
-    FROM Antwortmoeglichkeiten
-    WHERE QuizFrageID = ${questionId} AND IstRichtig = 1
-    `;
-
-    const correctIds = result.recordset.map((record) => record.AntwortID);
-    res.json({ correctIds: correctIds });
-  } catch (err) {
-    console.error("SQL Fehler bei der Antwortprüfung:", err);
-    res
-      .status(500)
-      .json({ error: "Fehler beim Abrufen der korrekten Antworten." });
-  }
-});
-
-const getCorrectAnswers = async (questionIds) => {
-  if (questionIds.length === 0) return {};
-
-  const idList = questionIds.join(",");
-
-  try {
-    const sqlQueryString = `
-      SELECT QuizFrageID, AntwortID
+      SELECT AntwortID
       FROM Antwortmoeglichkeiten
-      WHERE QuizFrageID IN (${idList}) AND IstRichtig = 1
+      WHERE QuizFrageID = ${questionId} AND IstRichtig = 1
     `;
 
-    const result = await sql.query(sqlQueryString);
+    const correctIds = result.recordset.map((row) => row.AntwortID);
 
-    const correctAnswersMap = result.recordset.reduce((acc, record) => {
-      if (!acc[record.QuizFrageID]) {
-        acc[record.QuizFrageID] = [];
-      }
-      acc[record.QuizFrageID].push(record.AntwortID);
-      return acc;
-    }, {});
-
-    return correctAnswersMap;
+    res.json({ correctIds });
   } catch (err) {
     console.error("SQL Fehler beim Abrufen der korrekten Antworten:", err);
-    throw new Error("Fehler beim Abrufen der korrekten Antworten.");
+    res.status(500).json({ error: "Fehler beim Abrufen der Lösungen." });
   }
-};
+});
 
 app.post("/submit-exam", async (req, res) => {
   const { userAnswers } = req.body;
@@ -167,7 +134,20 @@ app.post("/submit-exam", async (req, res) => {
 
   try {
     const questionIds = Object.keys(userAnswers).map(Number);
-    const correctAnswersMap = await getCorrectAnswers(questionIds);
+    const idList = questionIds.join(",");
+    const result = await sql.query(`
+      SELECT QuizFrageID, AntwortID
+      FROM Antwortmoeglichkeiten
+      WHERE QuizFrageID IN (${idList}) AND IstRichtig = 1
+    `);
+
+    const correctAnswersMap = result.recordset.reduce((acc, record) => {
+      if (!acc[record.QuizFrageID]) {
+        acc[record.QuizFrageID] = [];
+      }
+      acc[record.QuizFrageID].push(record.AntwortID);
+      return acc;
+    }, {});
 
     let correctCount = 0;
     const totalQuestions = questionIds.length;
@@ -176,10 +156,10 @@ app.post("/submit-exam", async (req, res) => {
 
     for (const qId of questionIds) {
       const questionId = qId.toString();
-
       const userSelectedAnswers = userAnswers[questionId]
         ? userAnswers[questionId].sort((a, b) => a - b)
         : [];
+
       const correctAnswers = correctAnswersMap[qId]
         ? correctAnswersMap[qId].sort((a, b) => a - b)
         : [];
@@ -194,6 +174,8 @@ app.post("/submit-exam", async (req, res) => {
       questionsDetails.push({
         questionId: qId,
         correctAnswerIds: correctAnswers,
+        userAnswerIds: userSelectedAnswers,
+        isCorrect: userString === correctString,
       });
     }
 
@@ -209,7 +191,7 @@ app.post("/submit-exam", async (req, res) => {
       questions: questionsDetails,
     });
   } catch (error) {
-    console.error("Fehler bei der Prüfungsabgabe:", error.message);
+    console.error("Fehler bei der Prüfungsabgabe:", error);
     res.status(500).json({ error: "Fehler bei der Auswertung der Prüfung." });
   }
 });

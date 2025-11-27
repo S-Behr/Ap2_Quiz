@@ -23,26 +23,23 @@ export const fetchQuizQuestions = async (
   }
 };
 
-export const checkAnswer = async (
-  questionId: number,
-  selectedAnswerIds: number[]
+export const fetchCorrectAnswers = async (
+  questionId: number
 ): Promise<number[]> => {
   try {
-    const response = await fetch("http://localhost:3000/check-answer", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        questionId: questionId,
-        selectedAnswerIds: selectedAnswerIds,
-      }),
-    });
+    const response = await fetch(
+      `http://localhost:3000/correct-answers/${questionId}`
+    );
+
     if (!response.ok) {
       throw new Error(`HTTP-Fehler! Status: ${response.status}`);
     }
+
     const result = await response.json();
+
     return result.correctIds || [];
   } catch (error) {
-    console.error("Fehler im Service bei der Überprüfung der Antwort:", error);
+    console.error("Fehler beim Laden der korrekten Antworten:", error);
     throw error;
   }
 };
